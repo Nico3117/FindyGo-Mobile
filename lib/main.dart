@@ -1,67 +1,31 @@
 import 'package:flutter/material.dart';
 
+import '_accueil.dart';
+import '_bdd.dart';
+import '_creation_compte.dart';
+import 'constants/_customMaterialColor.dart';
+
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'FindyGo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Color(0xff6fcf97),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      // home: const CreationCompte(title: 'Création de compte'),
+      home: Accueil(title: 'Accueil', backgroundColor: Color.fromARGB(255, 111, 207, 151)),
+      routes: <String, WidgetBuilder>{
+        '/accueil': (BuildContext context) => Accueil(title: 'Accueil', backgroundColor: Color.fromARGB(255, 111, 207, 151)),
+        '/creationCompte': (BuildContext context) => CreationCompte(title: 'Création de compte', backgroundColor: Color.fromARGB(255, 111, 207, 151)),
+      },
     );
   }
 }
