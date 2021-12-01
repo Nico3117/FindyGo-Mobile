@@ -1,3 +1,5 @@
+import 'package:findygo/login.dart';
+import 'package:findygo/forgot_pwd.dart';
 import 'package:flutter/material.dart';
 
 import '_accueil.dart';
@@ -18,11 +20,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'FindyGo',
       theme: ThemeData(
-        primaryColor: Color(0xff6fcf97),
+          primaryColor: Color(0xff6fcf97)
       ),
-      // home: const CreationCompte(title: 'Création de compte'),
       home: Accueil(title: 'Accueil', backgroundColor: Color.fromARGB(255, 111, 207, 151)),
-      routes: <String, WidgetBuilder>{
+      routes: <String, WidgetBuilder> {
+        '/login': (context) => LoginPage(title: "Login"),
+        '/forgotpwd': (context) => ForgotPwdPage(title: "Password"),
         '/accueil': (BuildContext context) => Accueil(title: 'Accueil', backgroundColor: Color.fromARGB(255, 111, 207, 151)),
         '/creationCompte': (BuildContext context) => CreationCompte(title: 'Création de compte', backgroundColor: Color.fromARGB(255, 111, 207, 151)),
       },
