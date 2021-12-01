@@ -49,6 +49,18 @@ class _Accueil extends State<Accueil> {
                   });
                 }),
             Padding(padding: EdgeInsets.only(bottom: 20)),
+            RaisedButton(
+                child: Text('Connexion comptes'),
+                elevation: 8,
+                color: Color.fromARGB(255, 111, 207, 151),
+                textColor: Colors.white,
+                onPressed: () {
+                  Navigator.pushNamed(context, '/login', arguments:<String, dynamic>{
+                    'title': 'titre accueil',
+                    'message': 'Message 1',
+                  });
+                }),
+            Padding(padding: EdgeInsets.only(bottom: 20)),
           ],
         ),
       ),

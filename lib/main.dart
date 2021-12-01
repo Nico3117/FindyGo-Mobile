@@ -24,9 +24,9 @@ class MyApp extends StatelessWidget {
       ),
       home: Accueil(title: 'Accueil', backgroundColor: Color.fromARGB(255, 111, 207, 151)),
       routes: <String, WidgetBuilder> {
+        '/accueil': (BuildContext context) => Accueil(title: 'Accueil', backgroundColor: Color.fromARGB(255, 111, 207, 151)),
         '/login': (context) => LoginPage(title: "Login"),
         '/forgotpwd': (context) => ForgotPwdPage(title: "Password"),
-        '/accueil': (BuildContext context) => Accueil(title: 'Accueil', backgroundColor: Color.fromARGB(255, 111, 207, 151)),
         '/creationCompte': (BuildContext context) => CreationCompte(title: 'Création de compte', backgroundColor: Color.fromARGB(255, 111, 207, 151)),
       },
     );
