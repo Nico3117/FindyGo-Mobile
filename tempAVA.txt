@@ -1,0 +1,100 @@
+ Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Padding(padding: EdgeInsets.only(bottom: 20)),
+            const Text(
+              ConstApp.appName,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40,
+                  color: Color.fromARGB(255, 111, 207, 151)),
+            ),
+            const Padding(padding: EdgeInsets.only(bottom: 20)),
+            RaisedButton(
+                child: Text('Création de comptes'),
+                elevation: 8,
+                color: Color.fromARGB(255, 111, 207, 151),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/creationCompte',
+                      arguments: <String, dynamic>{
+                        'title': 'titre accueil',
+                        'message': 'Message 1',
+                      });
+                }),
+            Padding(padding: EdgeInsets.only(bottom: 20)),
+            RaisedButton(
+                child: Text('Connexion comptes'),
+                elevation: 8,
+                color: Color.fromARGB(255, 111, 207, 151),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/login',
+                      arguments: <String, dynamic>{
+                        'title': 'titre accueil',
+                        'message': 'Message 1',
+                      });
+                }),
+            Padding(padding: EdgeInsets.only(bottom: 20)),
+            RaisedButton(
+                child: Text('Gestion base de données'),
+                elevation: 8,
+                color: Color.fromARGB(255, 111, 207, 151),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/gestionBdd',
+                      arguments: <String, dynamic>{
+                        'title': 'titre accueil',
+                        'message': 'Message 1',
+                      });
+                }),
+            Padding(padding: EdgeInsets.only(bottom: 20)),
+          ],
+        ),
+      ),
+
+
+
+      /////////////////////////
+
+          Widget monWidget1() {
+            return FractionallySizedBox(
+              widthFactor: 0.5,
+              heightFactor: 0.5,
+              child: Container(
+                color: Colors.red,
+              ),
+            );
+          }
+
+          Widget monWidget2() {
+            return Column(
+              children: [
+                Expanded(
+                  flex: 5,
+                  child: Container(
+                    color: Colors.red,
+                  ),
+                ),
+                Expanded(
+                  flex: 5,
+                  child: Container(
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            );
+          }
+
+          ////////////////////////////////////////
+
+          /*
+              Container(
+                        height: MediaQuery.of(context).size.height * 0.8,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        color: Colors.grey,
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: const <Widget>[
+                              Text('1 - Saisie d\'un texte dans une TextField : '),
+                            ]),
+                      ),
+           */

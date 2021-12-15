@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'forgot_pwd.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key, required this.title}) : super(key: key);
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
 
-  final String title;
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _Login createState() => _Login();
 }
-class _LoginPageState extends State<LoginPage> {
+class _Login extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
     return SafeArea(
         child: Scaffold(
           appBar: AppBar (
-            title: Text(widget.title),
+            title: Text("title"),
           ),
           body: Center(
             child: ListView(
