@@ -8,8 +8,8 @@ import 'package:footer/footer_view.dart';
 import 'footer.dart';
 import 'tiledata.dart';
 
-class Home extends StatelessWidget {
-  Home({
+class Rechercher extends StatelessWidget {
+  Rechercher({
     Key? key,
   }) : super(key: key);
 
@@ -37,7 +37,7 @@ class Home extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: 20.0),
               child: Center(
-                child: Text('Accueil'),
+                child: Text('Rechercher'),
               ),
             ),
           ],
@@ -50,4 +50,15 @@ class Home extends StatelessWidget {
     );
   }
 }
-
+/*
+    Container(
+              height: MediaQuery.of(context).size.height * 0.8,
+              width: MediaQuery.of(context).size.width * 0.9,
+              color: Colors.grey,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: const <Widget>[
+                    Text('1 - Saisie d\'un texte dans une TextField : '),
+                  ]),
+            ),
+ */

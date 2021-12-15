@@ -8,8 +8,8 @@ import 'package:footer/footer_view.dart';
 import 'footer.dart';
 import 'tiledata.dart';
 
-class Home extends StatelessWidget {
-  Home({
+class Favorites extends StatelessWidget {
+  Favorites({
     Key? key,
   }) : super(key: key);
 
@@ -19,8 +19,10 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+
     var largeurEcran = MediaQuery.of(context).size.width;
     var hauteurEcran = MediaQuery.of(context).size.height;
+
 
     return Scaffold(
       drawer: Theme(
@@ -37,7 +39,7 @@ class Home extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: 20.0),
               child: Center(
-                child: Text('Accueil'),
+                child: Text('Mes favoris'),
               ),
             ),
           ],
