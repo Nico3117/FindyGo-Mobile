@@ -38,13 +38,10 @@ class _MyBottomBarState extends State<MyBottomBar> {
           data: Theme.of(context).copyWith(
               canvasColor: Colors.orange,
               primaryColor: Colors.deepPurple,
-              textTheme: Theme
-                  .of(context)
-                  .textTheme
-                  .copyWith(caption: const TextStyle(color: Colors.yellow))),
+              textTheme: Theme.of(context).textTheme.copyWith(caption: const TextStyle(color: Colors.yellow))),
           child: BottomNavigationBar(
-            unselectedItemColor: Colors.black,
-            selectedItemColor: const Color.fromARGB(255, 111, 207, 151),
+            unselectedItemColor: const Color(0xffC1D2D9),
+            selectedItemColor: const Color(0xff4C5059),
             type: BottomNavigationBarType.fixed,
             backgroundColor: Colors.white,
             elevation: 1,
@@ -53,46 +50,46 @@ class _MyBottomBarState extends State<MyBottomBar> {
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 activeIcon:
-                Icon(Icons.search, color: Color.fromARGB(255, 111, 207, 151)),
+                Icon(Icons.search, color: const Color(0xff4C5059)),
                 icon: Icon(
                   Icons.search,
-                  color: Colors.black,
+                  color: const Color(0xff4C5059),
                 ),
                 label: 'Rechercher',
               ),
               BottomNavigationBarItem(
                 activeIcon: Icon(Icons.favorite_border,
-                    color: Color.fromARGB(255, 111, 207, 151)),
+                    color: const Color(0xff4C5059)),
                 icon: Icon(
                   Icons.favorite_border,
-                  color: Colors.black,
+                  color: const Color(0xff4C5059),
                 ),
                 label: 'Favoris',
               ),
               BottomNavigationBarItem(
                 activeIcon: Icon(Icons.publish_outlined,
-                    color: Color.fromARGB(255, 111, 207, 151)),
+                    color: const Color(0xff4C5059)),
                 icon: Icon(
-                  Icons.publish_outlined,
-                  color: Colors.black,
+                  Icons.add_circle_outlined,//publish_outlined
+                  color: const Color(0xff4C5059),
                 ),
                 label: 'Publier',
               ),
               BottomNavigationBarItem(
                 activeIcon:
-                Icon(Icons.chat, color: Color.fromARGB(255, 111, 207, 151)),
+                Icon(Icons.chat, color: const Color(0xff4C5059)),
                 icon: Icon(
                   Icons.chat,
-                  color: Colors.black,
+                  color: const Color(0xff4C5059),
                 ),
                 label: 'Messages',
               ),
               BottomNavigationBarItem(
                 activeIcon: Icon(Icons.account_circle_outlined,
-                    color: Color.fromARGB(255, 111, 207, 151)),
+                    color: const Color(0xff4C5059)),
                 icon: Icon(
                   Icons.account_circle_outlined,
-                  color: Colors.black,
+                  color: const Color(0xff4C5059),
                 ),
                 label: 'Compte',
               ),

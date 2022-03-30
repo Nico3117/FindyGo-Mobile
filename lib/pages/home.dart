@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:findygo/bo/Favorit.dart';
 import 'package:findygo/constants/classe_images.dart';
 import 'package:findygo/constants/routes.dart';
@@ -7,8 +6,8 @@ import 'package:findygo/widgets/bottom_bar.dart';
 import 'package:findygo/widgets/favorite_view_card.dart';
 import 'package:findygo/widgets/sport_card.dart';
 import 'package:flutter/material.dart';
-import 'package:bottom_nav_bar/bottom_nav_bar.dart';
-import 'package:flutter_svg/svg.dart';
+
+import '../widgets/card_home_nouveautes.dart';
 
 class Home extends StatefulWidget {
   Home({
@@ -36,9 +35,6 @@ class _HomeState extends State<Home> {
   int _currentIndexBottomAppBar = 0;
 
   // Utilisation d'un Stream pour bufferiser les villes
-  //late StreamController<List<Sport>> _streamControllerListeSports;
-  //late Stream<List<Sport>> _streamSport;
-
   List<String> lstDesMenu = List.empty(growable: true);
   List<Favorit> lstSport = List.empty(growable: true);
   List<Favorit> lstFemme = List.empty(growable: true);
@@ -110,10 +106,21 @@ class _HomeState extends State<Home> {
               color: Colors.white,
             ),
             Container(
-              height: 38,
+              height: 50,
               width: MediaQuery.of(context).size.width * 1.0,
               color: Colors.white,
-              child: const Text(
+              child: SizedBox(
+                width: 80.0,
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Image.asset(
+                    'assets/pictures/logo2.png',
+                    width: 50,
+                    height: 150,
+                  ),
+                ),
+              ),//Image.asset(),
+              /* const Text(
                 "FindyGo",
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -122,6 +129,7 @@ class _HomeState extends State<Home> {
                     fontWeight: FontWeight.bold,
                     color: Color.fromARGB(255, 111, 207, 151)),
               ),
+              */
             ),
           ]),
           _body(context),
@@ -137,7 +145,7 @@ class _HomeState extends State<Home> {
   Widget _buildPasswordField() => Center(
       child: Container(
           height: 50,
-          width: MediaQuery.of(context).size.width * 0.7,
+          width: MediaQuery.of(context).size.width * 0.95,
           color: Colors.white,
           child: TextFormField(
             decoration: InputDecoration(
@@ -145,7 +153,7 @@ class _HomeState extends State<Home> {
               hintText: "Rechercher sur FindyGo",
               border: const OutlineInputBorder(
                 borderSide: BorderSide(color: Color(0xFFFF0000)),
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                borderRadius: BorderRadius.all(Radius.circular(1.0)),
               ),
               prefixIcon: IconButton(
                 icon: const Icon(Icons.search),
@@ -192,7 +200,7 @@ class _HomeState extends State<Home> {
               Container(
                 padding: const EdgeInsets.all(4.0),
                 alignment: Alignment.centerLeft,
-                child: const Text("Catégories",
+                child: const Text("Retrouves tes sports préférés",
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold)),
               ),
@@ -202,153 +210,105 @@ class _HomeState extends State<Home> {
                   children: const [
                     SportCard(
                         name: "arc",
-                        url: "assets/pictures/png/icones_des_sports/arc.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "badminton",
-                        url:
-                            "assets/pictures/png/icones_des_sports/badminton.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "baseball",
-                        url:
-                            "assets/pictures/png/icones_des_sports/baseball.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "basket",
-                        url: "assets/pictures/png/icones_des_sports/basket.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "billard",
-                        url:
-                            "assets/pictures/png/icones_des_sports/billard.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "bowling",
-                        url:
-                            "assets/pictures/png/icones_des_sports/bowling.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "boxe",
-                        url: "assets/pictures/png/icones_des_sports/boxe.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "corde à sauter",
-                        url:
-                            "assets/pictures/png/icones_des_sports/corde_a_sauter.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "echec",
-                        url: "assets/pictures/png/icones_des_sports/echec.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "escrime",
-                        url:
-                            "assets/pictures/png/icones_des_sports/escrime.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "flechette",
-                        url:
-                            "assets/pictures/png/icones_des_sports/flechette.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "foot",
-                        url: "assets/pictures/png/icones_des_sports/foot.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "golf",
-                        url: "assets/pictures/png/icones_des_sports/golf.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "gym",
-                        url: "assets/pictures/png/icones_des_sports/gym.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "hockey",
-                        url: "assets/pictures/png/icones_des_sports/hockey.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "jet-ski",
-                        url:
-                            "assets/pictures/png/icones_des_sports/jet-ski.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "judo",
-                        url: "assets/pictures/png/icones_des_sports/judo.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "kayak",
-                        url: "assets/pictures/png/icones_des_sports/kayak.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "moto",
-                        url: "assets/pictures/png/icones_des_sports/moto.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "muscu",
-                        url: "assets/pictures/png/icones_des_sports/muscu.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "natation",
-                        url:
-                            "assets/pictures/png/icones_des_sports/natation.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "nunchaku",
-                        url:
-                            "assets/pictures/png/icones_des_sports/nunchaku.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "parachute",
-                        url:
-                            "assets/pictures/png/icones_des_sports/parachute.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "patin à glace",
-                        url:
-                            "assets/pictures/png/icones_des_sports/patin_a_glace.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "ping_pong",
-                        url:
-                            "assets/pictures/png/icones_des_sports/ping_pong.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "plongee",
-                        url:
-                            "assets/pictures/png/icones_des_sports/plongee.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "rugby",
-                        url: "assets/pictures/png/icones_des_sports/rugby.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "skate",
-                        url: "assets/pictures/png/icones_des_sports/skate.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "ski",
-                        url: "assets/pictures/png/icones_des_sports/ski.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "surf",
-                        url: "assets/pictures/png/icones_des_sports/surf.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "tennis",
-                        url: "assets/pictures/png/icones_des_sports/tennis.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "velo",
-                        url: "assets/pictures/png/icones_des_sports/velo.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "voile",
-                        url: "assets/pictures/png/icones_des_sports/voile.png",
                         route: ROUTE_SEARCH),
                     SportCard(
                         name: "volley",
-                        url: "assets/pictures/png/icones_des_sports/volley.png",
                         route: ROUTE_SEARCH),
                   ],
                 ),
@@ -362,176 +322,87 @@ class _HomeState extends State<Home> {
             sliver: SliverList(
                 delegate: SliverChildListDelegate([
               const SizedBox(height: 2),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(4),
-                //color: const Color.fromARGB(255, 111, 207, 151),
-                margin: const EdgeInsets.only(left: 8, top: 8, right: 8),
-                alignment: Alignment.centerLeft,
-                child: const Text(
-                  "Annonces fraichements publiées",
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.bold),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    //width: 50,
+                    padding: const EdgeInsets.all(4),
+                    margin: const EdgeInsets.only(left: 8, top: 8, right: 8),
+                    alignment: Alignment.centerLeft,
+                    child: const Text(
+                      "Nouveautés",
+                      style: TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Container(
+                    //width: 50,
+                    padding: const EdgeInsets.all(4),
+                    margin: const EdgeInsets.only(left: 8, top: 8, right: 8),
+                    alignment: Alignment.centerLeft,
+                    child: const Text(
+                      "Voir plus",
+                      style: TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.normal),
+                    ),
+                  ),
+                ],
+              ),
+            ]))),
+        SliverGrid(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 2,
+            mainAxisSpacing: 2,
+            childAspectRatio: 0.9,
+          ),
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              // Récupère un
+              Favorit unFavoris = lstHomme.elementAt(index);
+              return _gridViewAcceuilNouveaute(unFavoris);
+            },
+            childCount: 6,
+          ),
+        ),
+        SliverPadding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            sliver: SliverList(
+                delegate: SliverChildListDelegate([
+              SizedBox(
+                //height: 50,
+                child: Container(
+                  margin: const EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.all(3.0),
+                  decoration:
+                      BoxDecoration(border: Border.all(color: Colors.black)),
+                  child: InkWell(
+                      child: Text("Afficher plus d'annonces",
+                          textAlign: TextAlign.center),
+                      onTap: () =>
+                          //TODO: lien à changer
+                          Navigator.of(context)
+                              .pushReplacementNamed(ROUTE_FAVORIS)),
                 ),
               ),
             ]))),
-        SliverPadding(
-          padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-          sliver: SliverList(
-            delegate: SliverChildListDelegate([
-              SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: ListView(
-                  reverse: false,
-                  primary: false,
-                  shrinkWrap: true,
-                  children: [
-                    Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(4),
-                        color: const Color.fromARGB(255, 111, 207, 151),
-                        margin: const EdgeInsets.only(
-                            left: 8, top: 0, right: 8, bottom: 2),
-                        child: const Text(
-                          "Sport",
-                          style: TextStyle(fontSize: 24, color: Colors.white),
-                        )),
-                    Container(
-                      color: Colors.white,
-                      margin: const EdgeInsets.only(left: 8, right: 8),
-                      height: 314,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: lstSport.length,
-                          itemBuilder: (context, index) {
-                            final _item = lstSport[index];
-
-                            return SizedBox(
-                                width: 150,
-                                child: FavoriteViewCard(
-                                    _item.firstname,
-                                    _item.lastname,
-                                    _item.shortDescription,
-                                    _item.pictureUrl,
-                                    _item.pictureCustomer,
-                                    _item.price,
-                                    _item.marque,
-                                    _item.taille,
-                                    _item.customerRate,
-                                    _item.like));
-                          }),
-                    ),
-                    Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(4),
-                        color: Colors.green,
-                        margin:
-                            const EdgeInsets.only(left: 8, top: 8, right: 8),
-                        child: const Text(
-                          "Femme",
-                          style: TextStyle(fontSize: 24, color: Colors.white),
-                        )),
-                    Container(
-                      color: Colors.white,
-                      margin: const EdgeInsets.only(left: 8, right: 8),
-                      height: 314,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: lstFemme.length,
-                          itemBuilder: (context, index) {
-                            final _item = lstFemme[index];
-
-                            return SizedBox(
-                                width: 150,
-                                child: FavoriteViewCard(
-                                    _item.firstname,
-                                    _item.lastname,
-                                    _item.shortDescription,
-                                    _item.pictureUrl,
-                                    _item.pictureCustomer,
-                                    _item.price,
-                                    _item.marque,
-                                    _item.taille,
-                                    _item.customerRate,
-                                    _item.like));
-                          }),
-                    ),
-                    Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(4),
-                        color: const Color.fromARGB(255, 111, 207, 151),
-                        margin:
-                            const EdgeInsets.only(left: 8, top: 8, right: 8),
-                        child: const Text(
-                          "Homme",
-                          style: TextStyle(fontSize: 24, color: Colors.white),
-                        )),
-                    Container(
-                      color: Colors.white,
-                      margin: const EdgeInsets.only(left: 8, right: 8),
-                      height: 314,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: lstHomme.length,
-                          itemBuilder: (context, index) {
-                            final _item = lstHomme[index];
-
-                            return SizedBox(
-                                width: 150,
-                                child: FavoriteViewCard(
-                                    _item.firstname,
-                                    _item.lastname,
-                                    _item.shortDescription,
-                                    _item.pictureUrl,
-                                    _item.pictureCustomer,
-                                    _item.price,
-                                    _item.marque,
-                                    _item.taille,
-                                    _item.customerRate,
-                                    _item.like));
-                          }),
-                    ),
-                    Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(4),
-                        color: const Color.fromARGB(255, 111, 207, 151),
-                        margin:
-                            const EdgeInsets.only(left: 8, top: 8, right: 8),
-                        child: const Text(
-                          "Enfant",
-                          style: TextStyle(fontSize: 24, color: Colors.white),
-                        )),
-                    Container(
-                      color: Colors.white,
-                      margin: const EdgeInsets.only(left: 8, right: 8),
-                      height: 314,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: lstEnfant.length,
-                          itemBuilder: (context, index) {
-                            final _item = lstEnfant[index];
-
-                            return SizedBox(
-                                width: 150,
-                                child: FavoriteViewCard(
-                                    _item.firstname,
-                                    _item.lastname,
-                                    _item.shortDescription,
-                                    _item.pictureUrl,
-                                    _item.pictureCustomer,
-                                    _item.price,
-                                    _item.marque,
-                                    _item.taille,
-                                    _item.customerRate,
-                                    _item.like));
-                          }),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 2),
-            ]),
-          ),
-        ),
       ]);
+
+  Widget _gridViewAcceuilNouveaute(listeDesNouveautes) => Card(
+        color: Colors.black12,
+        elevation: 0.0,
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(1, 1, 1, 1),
+          child: CardHomeNouveautes(listeDesNouveautes),
+        ),
+      );
+
+  Divider _buildDivider() {
+    return const Divider(
+      color: Colors.white,
+      indent: 10,
+      endIndent: 10,
+    );
+  }
 }
