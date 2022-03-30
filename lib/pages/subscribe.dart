@@ -1,434 +1,397 @@
-import 'package:findygo/constants/constant_bdd.dart';
-import 'package:findygo/gestionBdd/table_models/sqlite_db.dart';
-import 'package:findygo/gestionBdd/table_models/user.dart';
-import 'package:findygo/helpers/helpers.dart';
-import 'package:findygo/widgets/nav_bar.dart';
-import 'package:findygo/widgets/side_menu_widget.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'dart:developer';
 
-import 'forgot_pwd.dart';
-import 'login.dart';
+import 'package:findygo/bo/ArgsRoute.dart';
+import 'package:findygo/helpers/helpers.dart';
+import 'package:findygo/utils/helpers/server_exchanges.dart';
+import 'package:flutter/material.dart';
+import 'package:findygo/constants/routes.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Subscribe extends StatefulWidget {
-  const Subscribe({
-    Key? key,
-  }) : super(key: key);
+  ///  Attributs ------------------------------------------------------------------
+  /// */
+
+  // Prochaine route / page à afficher
+  ArgsRoute nextRoute;
+  late TextEditingController tecEmail, tecId, tecPwd, tecPwd2;
+
+  ///  Constructor ------------------------------------------------------------------
+  /// */
+
+  Subscribe(this.nextRoute, {Key? key}) : super(key: key) {
+    tecEmail = TextEditingController();
+    tecId = TextEditingController();
+    tecPwd = TextEditingController();
+    tecPwd2 = TextEditingController();
+  }
 
   @override
-  _CreateAccount createState() => _CreateAccount();
+  State<Subscribe> createState() => _SubscribeState();
 }
 
-class _CreateAccount extends State<Subscribe> with ChangeNotifier {
-  final String title = "Connexion";
-  final Color backgroundColor = const Color.fromARGB(255, 111, 207, 151);
+class _SubscribeState extends State<Subscribe> {
+  // declare a GlobalKey pour le controle de la validation du formulaire
+  final _formKey = GlobalKey<FormState>();
 
-  String emailSaisie = "";
-  String passwordSaisie = "";
+  // declare a variable to keep track of the input text
+  String emailUserInput = '';
+  String pseudoUserInput = '';
+  String passwordUserInput = '';
+  String passwordUserInput2 = '';
 
-  // Variable de classe
-  String _userEmail = "";
-  String _userPassword = "";
-  String _userName = "";
+  // Lorsque l'on demande à soumettre le formulaire, on check les inputs
+  bool isButtonDisabled = false;
 
-  Map<String, dynamic> mapUser = {};
+  // Gère la visibilité du mot de passe
+  bool _isPasswordVisible = false;
 
-  late Map<String, dynamic> mapPersonneRecuperee;
-  User userRecord = User();
-  User userRetrieved = User();
-  late SqliteDB provider;
+  void _submit() {
+    // On controle les inputs avant la soumission du formulaire
+    setState(() => {
+          isButtonDisabled = true,
+        });
 
-  final _formKeyTitle = GlobalKey<FormState>();
-  final _formKeyEmail = GlobalKey<FormState>();
-  final _formKeyPassword = GlobalKey<FormState>();
-  final _inputUsername = GlobalKey<FormState>();
-
-  // Méthodes
-
-  Future<SqliteDB> getInstance() async {
-    return provider = SqliteDB.instance;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    userRecord = User.fromMap(mapUser);
-    getInstance();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    provider.close();
-  }
-
-  /// Créer un compte avec un email et un mot de passe
-  /// Le compte est créé uniquement si l'adresse email
-  /// n'existe pas déjà dans la table 'user'
-  Future<void> setUser(User _user) async {
-    try {
-      // Récupère la liste des user de la table user
-      var mapUser0 = await provider.getAll(TableNames.TUSER);
-
-      // Listes des emails + username + index de la table 'user'
-      List<String> listEmails = <String>[];
-      List<String> listUserNames = <String>[];
-      List<int> listIndex = <int>[];
-
-      for (int i = 0; i < mapUser0.length; i++) {
-        listEmails.add(mapUser0[i]['email']);
-        listUserNames.add(mapUser0[i]['username']);
-        listIndex.add(i);
-      }
-
-      // Check si l'email  fournit à la création du compte est déjà utilisé ?
-      if (listEmails.contains(_user.email) ||
-          listEmails.contains(_user.username)) {
-        throw 'Cette adresse email ou ce pseudo est existe déjà !';
-      }
-
-      try {
-        // Si l'adresse email et le pseudo fournit n'existe pas, le compte est créé
-        await provider.insert(TableNames.TUSER, _user.toMap());
-
-        // Snackbar du succès de création du compte
-        String add = _user.email + '/' + _user.username;
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Le compte $add à été créé avec succès'),
-        ));
-
-        // Retour à la page d'accueil
-        Navigator.pushNamed(context, '/home');
-      } catch (err) {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                backgroundColor: const Color.fromARGB(255, 111, 207, 151),
-                title: const Text("Création d'un compte"),
-                content: Text(err.toString()),
-              );
-            });
-      }
-    } catch (err) {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              backgroundColor: const Color.fromARGB(255, 111, 207, 151),
-              title: const Text("Création d'un compte"),
-              content: Text(err.toString()),
-            );
-          });
+    // validate == true si les 3 TextFieldField sont valide
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      // Faire une demande d'inscription au serveur
+      _subscribe(context);
     }
   }
 
-  // Widgets
+  ///  SetState ------------------------------------------------------------------
+  /// */
+  @override
+  void initState() {
+    super.initState();
+    isButtonDisabled = false;
+  }
+
+  ///  Dispose ------------------------------------------------------------------
+  /// */
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  ///  Widget: BUILD ------------------------------------------------------------------
+  /// */
+
   @override
   Widget build(BuildContext context) {
-    final logo = Padding(
-      padding: const EdgeInsets.all(10),
-      child: Hero(
-          tag: 'hero',
-          child: CircleAvatar(
-            child: Image.asset('assets/logo.png'),
-          )),
-    );
-
-    final bodyTitle = Form(
-        key: _formKeyTitle,
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              Padding(padding: EdgeInsets.only(bottom: 10)),
-              Text(
-                "Créer un compte",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 40,
-                    color: Color.fromARGB(255, 111, 207, 151)), //Colors.green),
-              ),
-              Padding(padding: EdgeInsets.only(bottom: 10)),
-              Divider(),
-            ]));
-
-    final inputEmail = Form(
-        key: _formKeyEmail,
-        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          const Padding(padding: EdgeInsets.only(bottom: 10)),
-          const Text('Saisissez votre email : '),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: TextField(
-              style: const TextStyle(
-                fontSize: 15.0,
-                height: 2.0,
-              ),
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-
-                hintText: 'Email',
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-              ),
-              onChanged: (value) {
-                setState(() {
-                  _userEmail = value;
-                });
-              },
-              onSubmitted: (value) {
-                setState(() {
-                  _userEmail = value;
-                });
-              },
-            ),
-          ),
-          const Padding(padding: EdgeInsets.only(bottom: 10)),
-          const Divider(),
-        ]));
-
-    final inputUsername = Form(
-        key: _inputUsername,
-        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          const Padding(padding: EdgeInsets.only(bottom: 10)),
-          const Text('Saisissez un pseudo : '),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: TextField(
-              style: const TextStyle(
-                fontSize: 15.0,
-                height: 2.0,
-              ),
-              keyboardType: TextInputType.emailAddress,
-              obscureText: false,
-              decoration: InputDecoration(
-                hintText: 'Pseudo',
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              onChanged: (value) {
-                setState(() {
-                  _userName = value;
-                });
-              },
-              onSubmitted: (value) {
-                setState(() {
-                  _userName = value;
-                });
-              },
-            ),
-          ),
-          const Padding(padding: EdgeInsets.only(bottom: 10)),
-          const Divider(),
-        ]));
-
-    final inputPassword = Form(
-        key: _formKeyPassword,
-        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          const Padding(padding: EdgeInsets.only(bottom: 10)),
-          const Text('Saisissez un mot de passe : '),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: TextField(
-              style: const TextStyle(
-                fontSize: 15.0,
-                height: 2.0,
-              ),
-              keyboardType: TextInputType.emailAddress,
-              obscureText: true,
-              decoration: InputDecoration(
-                hintText: 'Password',
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              onChanged: (value) {
-                setState(() {
-                  _userPassword = value;
-                });
-              },
-              onSubmitted: (value) {
-                setState(() {
-                  _userPassword = value;
-                });
-              },
-            ),
-          ),
-          const Padding(padding: EdgeInsets.only(bottom: 10)),
-          const Divider(),
-        ]));
-
-    final createButton = Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      child: ElevatedButton(
-          child: const Text('Créer',
-              style: TextStyle(color: Colors.white, fontSize: 20)),
-          style: ElevatedButton.styleFrom(
-            primary: const Color(0xFF6FCF97),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-          onPressed: () async {
-            // Retour à la page d'acceuil si les informations
-            // pour la création d'un nouveau compte sont correcte
-            if (checkEmailOk(_userEmail) &&
-                checkUserNameOk(_userName) &&
-                checkPasswordOk(_userPassword)) {
-              User _u0 = User();
-              _u0.email = _userEmail;
-              _u0.username = _userName;
-              _u0.password = _userPassword;
-
-              setUser(_u0);
-
-              _userEmail = "";
-              _userName = "";
-              _userPassword = "";
-
-              // Notifier pour enregistrer l'utilisateur dans ses PrefencesShared
-
-              // Retour à la page d'accueil
-              // Navigator.pushNamed(context, '/home');
-
-            } else {
-              if (!checkEmailOk(_userEmail)) {
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text("Format adresse email invalide"),
-                ));
-              } else if (!checkUserNameOk(_userName)) {
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text("Format pseudo invalide"),
-                ));
-              } else if (!checkPasswordOk(_userPassword)) {
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text("Format mot de passe invalide"),
-                ));
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content:
-                      Text("L'adresse email et le mot de passe sont invalide"),
-                ));
-              }
-            }
-          }),
-    );
-
-    final buttonSignUp = TextButton(
-      onPressed: () {
-        Navigator.push(context,
-            MaterialPageRoute<void>(builder: (BuildContext context) {
-          return const Login();
-        }));
-      },
-      child: const Text('Connexion',
-          style: TextStyle(
-              backgroundColor: Colors.blueGrey,
-              color: Colors.blue,
-              fontSize: 15)),
-    );
-
-    final buttonForgotPassword = TextButton(
-      onPressed: () {
-        Navigator.push(context,
-            MaterialPageRoute<void>(builder: (BuildContext context) {
-          return const ForgotPwdPage(title: "Password");
-        }));
-      },
-      child: const Text('Mot de passe oublié ?',
-          style: TextStyle(
-              backgroundColor: Colors.blueGrey,
-              color: Colors.blue,
-              fontSize: 15)),
-    );
-/*
-    final getAllButton = Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      child: ElevatedButton(
-          child: const Text('GetAll',
-              style: TextStyle(color: Colors.white, fontSize: 20)),
-          style: ElevatedButton.styleFrom(
-            primary: const Color(0xFF6FCF97),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            //fixedSize: const Size(20, 10)
-          ),
-          onPressed: () {
-            getAllUsers();
-          }),
-    );
-
-    final getEraseOne = Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      child: ElevatedButton(
-          child: const Text('supOne',
-              style: TextStyle(color: Colors.white, fontSize: 20)),
-          style: ElevatedButton.styleFrom(
-            primary: const Color(0xFF6FCF97),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            //fixedSize: const Size(20, 10)
-          ),
-          onPressed: () {
-            getAllUsers();
-          }),
-    );
-
-    final getEraseAll = Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      child: ElevatedButton(
-          child: const Text('supAll',
-              style: TextStyle(color: Colors.white, fontSize: 20)),
-          style: ElevatedButton.styleFrom(
-            primary: const Color(0xFF6FCF97),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            //fixedSize: const Size(20, 10)
-          ),
-          onPressed: () {
-            getAllUsers();
-          }),
-    );
-*/
     return Scaffold(
-      drawer: Theme(
-        data: Theme.of(context).copyWith(
-          canvasColor: Colors.blueGrey,
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+            child: SizedBox(
+                height: MediaQuery.of(context).size.height,
+                child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Center(
+                      child: Column(
+                        children: <Widget>[
+                          Container(height: 50),
+                          _logo(),
+                          _bodyTitle(),
+                          Container(height: 10),
+                          Container(
+                            color: Colors.white,
+                              height: 401,
+                              child: Form(
+                                  key: _formKey,
+                                  child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                                    _buildEmailField(),
+                                    _buildUsernameField(),
+                                    _buildPasswordField(),
+                                    _buildPasswordField2(),
+                                    const SizedBox(
+                                      height:0,
+                                    ),
+                                    _buildRegistrationButton(context),
+                                  ]))),
+                          //const SizedBox(height:0,),
+                          const Spacer(),
+                          Image.network(
+                            "http://img.over-blog.com/610x343/5/73/33/24/BLOG/TOP-201.jpg",
+                            width: MediaQuery.of(context)
+                                .size
+                                .width *
+                                0.9,
+                            //height: 200,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: <Widget>[
+                            _buildLoginButton(context),
+                            _buildForgotPasswordButton(context),
+                          ]),
+                          const SizedBox(
+                            height:20,
+                          ),
+                        ],
+                      ),
+                    )))));
+  }
+
+  ///  Widgets ------------------------------------------------------------------
+  /// */
+
+  Widget _logo() => SizedBox(
+        width: 80.0,
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Image.asset(
+            'assets/pictures/logo.png',
+            width: 50,
+            height: 50,
+          ),
         ),
-        child: const NavDrawer(),
-      ),
-      backgroundColor: Colors.blueGrey,
-      appBar: const NavBar(),
-      body: SingleChildScrollView(
-        child: ListView(
-          shrinkWrap: true,
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          children: <Widget>[
-            logo,
-            bodyTitle,
-            inputEmail,
-            inputUsername,
-            inputPassword,
-            createButton,
-            Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  buttonSignUp,
-                  buttonForgotPassword,
-                ]),
-          ],
+      );
+
+  Widget _bodyTitle() => SizedBox(
+      width: 200.0,
+      child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children:const <Widget>[
+            Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child:
+                Text(
+                  "Créer un compte",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Color.fromARGB(255, 111, 207, 151)),
+                ))
+          ]));
+
+  Widget _buildEmailField() => SizedBox(
+      width: 200.0,
+      child: TextFormField(
+        controller: widget.tecEmail,
+        keyboardType: TextInputType.emailAddress,
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          labelText: "Email",
+          hintText: "Email",
+          prefixIcon: IconButton(
+            icon: const Icon(Icons.account_circle_outlined),
+            onPressed: () {},
+          ),
         ),
+        autovalidateMode: isButtonDisabled ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
+        // use the validator to return an error string (or null) based on the input text
+        validator: (text) {
+          if (!checkEmailOk(text!)) {
+            return 'Format email invalide !';
+          }
+          return null;
+        },
+        // update the state variable when the text changes
+        onChanged: (text) => setState(() => emailUserInput = text),
+      ));
+
+  Widget _buildUsernameField() => SizedBox(
+        width: 200.0,
+        child: TextFormField(
+          controller: widget.tecId,
+          keyboardType: TextInputType.emailAddress,
+          textInputAction: TextInputAction.next,
+          decoration: InputDecoration(
+            labelText: "Pseudo",
+            hintText: "Pseudo",
+            prefixIcon: IconButton(
+              icon: const Icon(Icons.alternate_email),
+              onPressed: () {},
+            ),
+          ),
+          autovalidateMode: isButtonDisabled ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
+          // use the validator to return an error string (or null) based on the input text
+          validator: (text) {
+            if (text == null || text.length < 6) {
+              //isButtonDisabled = false;
+              //pseudoUserInput = '';
+              return 'Pseudo trop court (min. 6 caractères) !';
+            } else {
+              //isButtonDisabled = true;
+              //pseudoUserInput = text;
+            }
+            return null;
+          },
+          // update the state variable when the text changes
+          onChanged: (text) => setState(() => pseudoUserInput = text),
+        ),
+      );
+
+  Widget _buildPasswordField() => SizedBox(
+        width: 200.0,
+        child: TextFormField(
+          controller: widget.tecPwd,
+          obscureText: !_isPasswordVisible,
+          textInputAction: TextInputAction.next,
+          decoration: InputDecoration(
+            labelText: "Mot de passe",
+            hintText: "Mot de passe",
+            prefixIcon: IconButton(
+              icon: const Icon(Icons.lock_outline_rounded),
+              onPressed: () {},
+            ),
+            suffixIcon: IconButton(
+              onPressed: () => updateStatus(),
+              icon: Icon(_isPasswordVisible ? Icons.visibility : Icons.visibility_off),
+            ),
+          ),
+          autovalidateMode: isButtonDisabled ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
+          validator: (text) {
+            if (text == null || text.length < 6) {
+              return 'Mot de passe trop court (min. 6 caractères) !';
+            } else if (text != passwordUserInput2) {
+              return 'Mots de passe différents';
+            }
+            return null;
+          },
+          // update the state variable when the text changes
+          onChanged: (text) => setState(() => passwordUserInput = text),
+        ),
+      );
+
+  Widget _buildPasswordField2() => SizedBox(
+        width: 200.0,
+        child: TextFormField(
+          controller: widget.tecPwd2,
+          obscureText: !_isPasswordVisible,
+          textInputAction: TextInputAction.next,
+          decoration: InputDecoration(
+            labelText: "Confirmation mot de passe",
+            hintText: "Confirmation mot de passe",
+            prefixIcon: IconButton(
+              icon: const Icon(Icons.lock_outline_rounded),
+              onPressed: () {},
+            ),
+            suffixIcon: IconButton(
+              onPressed: () => updateStatus(),
+              icon: Icon(_isPasswordVisible ? Icons.visibility : Icons.visibility_off),
+            ),
+          ),
+          autovalidateMode: isButtonDisabled ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
+          validator: (text) {
+            if (text == null || text.length < 6) {
+              return 'Mot de passe trop court (min. 6 caractères) !';
+            } else if (text != passwordUserInput) {
+              return 'Mots de passe différents';
+            }
+            return null;
+          },
+          // update the state variable when the text changes
+          onChanged: (text) => setState(() => passwordUserInput2 = text),
+        ),
+      );
+
+  void updateStatus() {
+    // Flip flop pour la visibilité du password
+    setState(() {
+      _isPasswordVisible = !_isPasswordVisible;
+    });
+  }
+
+  Widget _buildRegistrationButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: ElevatedButton(
+        child: const Text('Créer', style: TextStyle(color: Colors.white, fontSize: 20)),
+        style: ElevatedButton.styleFrom(
+          primary: const Color(0xFF6FCF97),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        onPressed: () => emailUserInput.isNotEmpty && pseudoUserInput.isNotEmpty && passwordUserInput.isNotEmpty && passwordUserInput2.isNotEmpty
+            ? _submit()
+            : null,
       ),
     );
+  }
+
+  ///  Widgets button ------------------------------------------------------------------
+  /// */
+
+  Widget _buildLoginButton(BuildContext context) {
+    return OutlinedButton(
+      child: const Text("Se connecter"),
+      onPressed: () => {
+        // Aller à la page loggin
+        Navigator.of(context).pushReplacementNamed(ROUTE_LOGIN)
+      },
+    );
+  }
+
+  Widget _buildForgotPasswordButton(BuildContext context) {
+    return OutlinedButton(
+      child: const Text("Mot de passe oublié"),
+      onPressed: () => {
+        // Aller à la page mot de passe oublier
+        Navigator.of(context).pushReplacementNamed(ROUTE_FORGOT_PASSWORD)
+      },
+    );
+  }
+
+  ///  Methods ------------------------------------------------------------------
+  /// */
+
+  void _subscribe(BuildContext context) {
+    Map _body = {
+      "username": widget.tecId.text,
+      "firstname": widget.tecId.text,
+      "lastname": "",
+      "email": widget.tecEmail.text,
+      "password": widget.tecPwd.text,
+      "phone": "",
+      "postal_address": "",
+      "postal_code": "",
+      "city": "",
+      "department": "",
+      "country": ""
+    };
+
+    ajaxPost("/users", _body).then((value) async => {
+
+    log("########################### Data:", name: "fichier : server_exhanges", error: value),
+
+          if (value['status'] == "User already existe")
+            {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Identifiant de compte déjà utilisé par un autre utilisateur !\nUtiliser d\'autres identifiants'))),
+            }
+          else if (value['id'].toString() != "0")
+            {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Inscription réussi.\nVous devez vous connecter une première fois.'))),
+
+              // Sauvegarde des données reçues dans les SharedPreferences
+              await const FlutterSecureStorage()
+                .write(key: "email", value: widget.tecEmail.text),
+              await const FlutterSecureStorage()
+                  .write(key: "password", value: widget.tecPwd.text),
+              await const FlutterSecureStorage()
+                  .write(key: "id", value: value["id"]),
+
+              // Lire une valeur
+              await FlutterSecureStorage().read(key: "email").then((value) {
+              print("-------------------------------> email :" + value.toString());
+              }),
+              await FlutterSecureStorage().read(key: "password").then((value) {
+              print("-------------------------------> password :" + value.toString());
+              }),
+              await FlutterSecureStorage().read(key: "id").then((value) {
+              print("-------------------------------> id :" + value.toString());
+              }),
+
+              // Reset textviews
+              widget.tecEmail.text = "",
+              widget.tecId.text = "",
+              widget.tecPwd.text = "",
+              widget.tecPwd2.text = "",
+
+              Navigator.pushNamed(context, ROUTE_LOGIN),
+            }
+          else
+            {ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Status non géré")))}
+        });
   }
 }

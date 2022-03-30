@@ -1,22 +1,17 @@
-import 'package:findygo/pages/admin.dart';
-import 'package:findygo/pages/admin_gestion_bdd.dart';
-import 'package:findygo/pages/cgv.dart';
-import 'package:findygo/pages/favorites.dart';
-import 'package:findygo/pages/login.dart';
+import 'package:findygo/pages/favoris.dart';
+import 'package:findygo/pages/intro_slider.dart';
+import 'package:findygo/pages/login_page.dart';
 import 'package:findygo/pages/forgot_pwd.dart';
-import 'package:findygo/pages/mentions_legales.dart';
-import 'package:findygo/pages/search.dart';
-import 'package:findygo/pages/wishlist.dart';
+import 'package:findygo/pages/publish_page.dart';
+import 'package:findygo/pages/subscribe.dart';
 import 'package:flutter/material.dart';
 import 'package:findygo/constants/constantes.dart';
-import 'package:provider/provider.dart';
+import 'bo/ArgsRoute.dart';
+import 'constants/routes.dart';
 import 'pages/home.dart';
-import 'pages/_spalsh_screen_page.dart';
-import 'gestionBdd/_gestion_bdd.dart';
-import 'pages/subscribe.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -27,21 +22,30 @@ class MyApp extends StatelessWidget {
     const appName = 'FindyGo';
 
     return MaterialApp(
-      debugShowCheckedModeBanner: ConstApp.ADMIN_MODE,
-      title: appName,
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+      // Affichage de la bannière Mode Debug
+        debugShowCheckedModeBanner: ConstApp.ADMIN_MODE,
+        title: appName,
 
-        // Define the default brightness and colors.
-        brightness: Brightness.dark,
-        primaryColor: const Color.fromARGB(255, 111, 207, 151),
+        // Permet de basculer automatiquement entre le style bright ou dark de l'appareil
+        themeMode: ThemeMode.system,
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+        ),
+        theme: ThemeData(
+          visualDensity: VisualDensity.adaptivePlatformDensity,
 
-        // Define the default font family.
-        fontFamily: 'Georgia',
+          // Define the default brightness and colors.
+          brightness: Brightness.light,
+          primaryColor: const Color.fromARGB(255, 111, 207, 151),
+          //primarySwatch: Colors.white60,
+          backgroundColor: Colors.white,
 
-        // Define the default `TextTheme`. Use this to specify the default
-        // text styling for headlines, titles, bodies of text, and more.
-        textTheme: const TextTheme(
+          // Define the default font family.
+          fontFamily: 'Georgia',
+
+          // Define the default `TextTheme`. Use this to specify the default
+          // text styling for headlines, titles, bodies of text, and more.
+          /*textTheme: const TextTheme(
           headline1: TextStyle(fontSize: 45.0, fontWeight: FontWeight.bold),
           headline2: TextStyle(fontSize: 35.0, fontWeight: FontWeight.bold),
           headline3: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
@@ -63,43 +67,34 @@ class MyApp extends StatelessWidget {
               color: Color.fromARGB(150, 0, 0, 0),
               backgroundColor: Color.fromARGB(255, 111, 207, 151)),
           overline: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+        ),*/
         ),
-      ),
-      home: const SplashScreenPage(),
-      // home search login createAccount favorites wishlist
-      routes: <String, WidgetBuilder>{
-        // Main page routes
-        '/home': (BuildContext context) => Home(),
-        '/search': (BuildContext context) => Search(),
-        '/login': (context) => Login(),
-        //Login
-        '/createAccount': (BuildContext context) => Subscribe(),
-        '/favorites': (BuildContext context) => Favorites(),
-        '/cart': (BuildContext context) => Cart(),
+        // Route initiale
+        home: Home(),
+        // home: const CheckConnexion(),
 
-        // Miscellaneous routes
-        '/forgotpwd': (context) => const ForgotPwdPage(title: "Password"),
-        '/gestionBdd': (BuildContext context) => GestionBdd(),
-        //'/gestionBddCreate': (BuildContext context) => CreateAccount(),//GestionBddCreate(),
-        /*'/gestionBddRead': (BuildContext context) => GestionBddRead(),
-        '/gestionBddUpdate': (BuildContext context) => GestionBddUpdate(),
-        '/gestionBddDelete': (BuildContext context) => GestionBddDelete(),*/
+        // Routes sans paramètres
+        routes: <String, WidgetBuilder>{
+          ROUTE_SEARCH: (BuildContext context) => Home(),
+          ROUTE_INTRO_SLIDER: (BuildContext context) => IntroScreenState(),
+          ROUTE_PUBLISH: (BuildContext context) => PublishPage(),
+          //'/search': (BuildContext context) => Search(),
+          ROUTE_FAVORIS: (BuildContext context) => Favoris(),
+          ROUTE_FORGOT_PASSWORD: (context) => ForgotPwdPage(),
+        },
 
-        // Footer routes
-        '/cgv': (BuildContext context) => CGV(),
-        '/mentionsLegales': (BuildContext context) => MentionsLegales(),
-
-        // Maintenance
-        '/admin': (BuildContext context) => const Admin(),
-        //'/adminGestionBdd': (BuildContext context) => AdminGestionBdd(),
-      },
+        // Routes avec passage de paramètres
+        onGenerateRoute: (settings) {
+          if (settings.name == ROUTE_ACCOUNT) {
+            return MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    LoginPage(settings.arguments as ArgsRoute));
+          } else if (settings.name == ROUTE_SUBSCRIBE) {
+            return MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    Subscribe(settings.arguments as ArgsRoute));
+          }
+        }
     );
   }
 }
-/*
-        '/adminGestionBdd': (BuildContext context) => ChangeNotifierProvider(
-          // //AdminGestionBdd(),
-              create: (_) => ListeUser(0),
-              child: const AdminGestionBdd(),
-            ),
- */
