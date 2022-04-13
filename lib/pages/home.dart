@@ -1,3 +1,6 @@
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:findygo/bo/Favorit.dart';
 import 'package:findygo/constants/classe_images.dart';
 import 'package:findygo/constants/routes.dart';
@@ -35,46 +38,12 @@ class _HomeState extends State<Home> {
 
   // Utilisation d'un Stream pour bufferiser les villes
   List<String> lstDesMenu = List.empty(growable: true);
-  List<Favorit> lstSport = List.empty(growable: true);
-  List<Favorit> lstFemme = List.empty(growable: true);
   List<Favorit> lstHomme = List.empty(growable: true);
-  List<Favorit> lstEnfant = List.empty(growable: true);
-
-  TabBar createTabBar() {
-    return TabBar(
-      tabs: [
-        Row(children: const [SizedBox(width: 5), Text("Car")]),
-        Row(children: const [SizedBox(width: 5), Text("Transit")]),
-        Row(children: const [SizedBox(width: 5), Text("Bike")]),
-        Row(children: const [SizedBox(width: 5), Text("Boat")]),
-        Row(children: const [SizedBox(width: 5), Text("Railway")]),
-        Row(children: const [SizedBox(width: 5), Text("Bus")]),
-      ],
-      isScrollable: true,
-    );
-  }
-
-  // Liste des menu
-  List<String> _fetchListeMenu() {
-    List<String> lstDesMenu = List.empty(growable: true);
-
-    lstDesMenu.add("Sport");
-    lstDesMenu.add("Femme");
-    lstDesMenu.add("Homme");
-    lstDesMenu.add("Enfant");
-    lstDesMenu.add("F.A.Q");
-    lstDesMenu.add("A propos");
-    return lstDesMenu;
-  }
 
   @override
   void initState() {
     super.initState();
-    lstDesMenu = _fetchListeMenu();
-    lstSport = ImagesTests.fetchListeFavoris("Sport");
-    lstFemme = ImagesTests.fetchListeFavoris("Femme");
     lstHomme = ImagesTests.fetchListeFavoris("Homme");
-    lstEnfant = ImagesTests.fetchListeFavoris("Enfant");
     _currentIndexBottomAppBar = 0;
   }
 
@@ -119,16 +88,6 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ), //Image.asset(),
-              /* const Text(
-                "FindyGo",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontStyle: FontStyle.normal,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 111, 207, 151)),
-              ),
-              */
             ),
           ]),
           _body(context),
@@ -149,9 +108,9 @@ class _HomeState extends State<Home> {
           child: TextFormField(
             decoration: InputDecoration(
               labelText:
-                  "AppLocalizations.of(context)?.translate3('home', 'rechercher_sur_findygo').toString()",
+                  AppLocalizations.of(context).home_search_for_more_items,
               hintText:
-                  "AppLocalizations.of(context)!.translate3('home', 'rechercher_sur_findygo').toString()",
+                  AppLocalizations.of(context).home_search_for_more_items,
               border: const OutlineInputBorder(
                 borderSide: BorderSide(color: Color(0xFFFF0000)),
                 borderRadius: BorderRadius.all(Radius.circular(1.0)),
@@ -163,7 +122,7 @@ class _HomeState extends State<Home> {
             ),
             validator: (value) {
               if (value != null) {
-                return "AppLocalizations.of(context)!.translate3('home', 'veuillez_saisir_du_texte')";
+                return AppLocalizations.of(context).home_please_enter_text;
               }
               return null;
             },
@@ -202,7 +161,7 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.all(4.0),
                 alignment: Alignment.centerLeft,
                 child: Text(
-                    "AppLocalizations.of(context)!.translate3('home', 'retrouve_tes_sports_prefere')",
+                    AppLocalizations.of(context).home_find_tour_favorites_sports,
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold)),
               ),
@@ -265,7 +224,7 @@ class _HomeState extends State<Home> {
                     margin: const EdgeInsets.only(left: 8, top: 8, right: 8),
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "AppLocalizations.of(context)!.translate3('home', 'nouveautes')",
+                      AppLocalizations.of(context).home_search_for_more_items,
                       style: TextStyle(
                           color: Colors.black, fontWeight: FontWeight.bold),
                     ),
@@ -277,7 +236,7 @@ class _HomeState extends State<Home> {
                     alignment: Alignment.centerLeft,
                     child: InkWell(
                         child: Text(
-                          "AppLocalizations.of(context)!.translate3('home', 'voir_plus')",
+                          AppLocalizations.of(context).home_see_more,
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.normal),
@@ -318,7 +277,7 @@ class _HomeState extends State<Home> {
                   decoration:
                       BoxDecoration(border: Border.all(color: Colors.black)),
                   child: InkWell(
-                      child: Text("AppLocalizations.of(context).",
+                      child: Text(AppLocalizations.of(context).home_search_for_more_items,
                           textAlign: TextAlign.center),
                       onTap: () =>
                           //TODO: lien à changer

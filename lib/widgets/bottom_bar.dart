@@ -1,9 +1,10 @@
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:findygo/constants/routes.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import '../l10n/app_localizations.dart';
-import '../l10n/l10n.dart';
+
+import '../bo/ArgsRoute.dart';
 
 class MyBottomBar extends StatefulWidget {
   // index de la bottomAppBar
@@ -57,25 +58,25 @@ class _MyBottomBarState extends State<MyBottomBar> {
               Icons.search,
               color: const Color(0xff4C5059),
             ),
-            label: "AppLocalizations.of(context)!.translate('bottom_menu_bar_search')",
+            label: AppLocalizations.of(context).bottom_menu_bar_search,
           ),
           BottomNavigationBarItem(
             activeIcon:
-                Icon(Icons.favorite_border, color: const Color(0xff4C5059)),
+            Icon(Icons.favorite_border, color: const Color(0xff4C5059)),
             icon: Icon(
               Icons.favorite_border,
               color: const Color(0xff4C5059),
             ),
-            label: "AppLocalizations.of(context)!.bottom_menu_bar_search",
+            label: AppLocalizations.of(context).bottom_menu_bar_favorites,
           ),
           BottomNavigationBarItem(
             activeIcon:
-                Icon(Icons.publish_outlined, color: const Color(0xff4C5059)),
+            Icon(Icons.publish_outlined, color: const Color(0xff4C5059)),
             icon: Icon(
               Icons.add_circle_outlined, //publish_outlined
               color: const Color(0xff4C5059),
             ),
-            label: "AppLocalizations.of(context)!.bottom_menu_bar_search",
+            label: AppLocalizations.of(context).bottom_menu_bar_publish,
           ),
           BottomNavigationBarItem(
             activeIcon: Icon(Icons.chat, color: const Color(0xff4C5059)),
@@ -83,7 +84,7 @@ class _MyBottomBarState extends State<MyBottomBar> {
               Icons.chat,
               color: const Color(0xff4C5059),
             ),
-            label: "AppLocalizations.of(context)!.bottom_menu_bar_search",
+            label: AppLocalizations.of(context).bottom_menu_bar_messages,
           ),
           BottomNavigationBarItem(
             activeIcon: Icon(Icons.account_circle_outlined,
@@ -92,7 +93,7 @@ class _MyBottomBarState extends State<MyBottomBar> {
               Icons.account_circle_outlined,
               color: const Color(0xff4C5059),
             ),
-            label: "AppLocalizations.of(context)!.bottom_menu_bar_search",
+            label: AppLocalizations.of(context).bottom_menu_bar_account,
           ),
         ],
       ));
@@ -128,7 +129,8 @@ class _MyBottomBarState extends State<MyBottomBar> {
           break;
         case 4:
           {
-            Navigator.of(context).pushReplacementNamed(ROUTE_ACCOUNT);
+            ArgsRoute _ags = new ArgsRoute("From some where");
+            Navigator.of(context).pushNamed(ROUTE_ACCOUNT, arguments: _ags);
           }
           break;
         default:

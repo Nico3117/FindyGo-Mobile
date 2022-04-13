@@ -83,8 +83,6 @@ flutter:
     - assets/pictures/png/images_avatars/
     - assets/pictures/svg/
     - assets/pictures/temp/
-    # - assets/i18n/en.json
-    # - assets/i18n/fr.json
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -118,4 +116,4 @@ flutter:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/pictures/logo.png"
+  image_path: "assets/pictures/logo_new.png"

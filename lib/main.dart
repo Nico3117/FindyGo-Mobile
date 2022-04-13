@@ -6,13 +6,12 @@ import 'package:findygo/pages/publish_page.dart';
 import 'package:findygo/pages/subscribe.dart';
 import 'package:flutter/material.dart';
 import 'package:findygo/constants/constantes.dart';
-//import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'l10n/app_localizations.dart';
-import 'l10n/l10n.dart';
 import 'bo/ArgsRoute.dart';
 import 'constants/routes.dart';
 import 'pages/home.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   runApp(MyApp());
@@ -26,16 +25,16 @@ class MyApp extends StatelessWidget {
     const appName = 'FindyGo';
 
     return MaterialApp(
-        // Paramètres pour l'internationnalisation
+        // Commande pour générer flutter_gen: "flutter gen-l10n"
         localizationsDelegates: [
-          //AppLocalizations.delegate,
+          AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
         supportedLocales: const [
           Locale('en', ''),
-          Locale('es', ''),
+          Locale('fr', ''),
         ],
         // Affichage de la bannière Mode Debug
         debugShowCheckedModeBanner: ConstApp.ADMIN_MODE,
