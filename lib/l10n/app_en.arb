@@ -1,0 +1,51 @@
+{
+    "helloWorld": "Hello World!",
+    "@helloWorld": {
+        "description": "The conventional newborn programmer greeting"
+    },
+
+    "bottom_menu_bar_search":"Search",
+    "@bottom_menu_bar_search":{
+        "description":"Search some articles"
+    },
+    "bottom_menu_bar_favorites":"Favorites",
+    "@bottom_menu_bar_favorites":{
+        "description":"Customer favorites goods"
+    },
+    "bottom_menu_bar_publish":"Publish",
+    "@bottom_menu_bar_publish":{
+        "description":"Publish some articles"
+    },
+    "bottom_menu_bar_messages":"Search",
+    "@bottom_menu_bar_messages":{
+        "description":"Customer messages"
+    },
+    "bottom_menu_bar_account":"Account",
+    "@bottom_menu_bar_account":{
+        "description":"Customer account"
+    },
+    "home_search_on_findygo":"Search on FindyGo",
+    "@home_search_on_findygo":{
+        "description":""
+    },
+    "home_find_tour_favorites_sports":"Find your favorite sports",
+    "@home_find_tour_favorites_sports":{
+        "description":""
+    },
+    "home_news":"News",
+    "@home_news":{
+        "description":""
+    },
+    "home_search_for_more_items":"Search for more items",
+    "@home_search_for_more_items":{
+        "description":""
+    },
+    "home_please_enter_text":"Please enter text",
+    "@home_please_enter_text":{
+        "description":""
+    },
+    "home_see_more":"see more",
+    "@home_see_more":{
+        "description":""
+    }
+}
