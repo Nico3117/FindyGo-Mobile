@@ -1,12 +1,11 @@
 import 'package:findygo/bo/Favorit.dart';
 import 'package:findygo/constants/classe_images.dart';
 import 'package:findygo/constants/routes.dart';
-import 'package:findygo/utils/helpers/server_exchanges.dart';
 import 'package:findygo/widgets/bottom_bar.dart';
-import 'package:findygo/widgets/favorite_view_card.dart';
 import 'package:findygo/widgets/sport_card.dart';
 import 'package:flutter/material.dart';
 
+//import '../helpers/AppLocalizations.dart';
 import '../widgets/card_home_nouveautes.dart';
 
 class Home extends StatefulWidget {
@@ -119,7 +118,7 @@ class _HomeState extends State<Home> {
                     height: 150,
                   ),
                 ),
-              ),//Image.asset(),
+              ), //Image.asset(),
               /* const Text(
                 "FindyGo",
                 textAlign: TextAlign.center,
@@ -149,8 +148,10 @@ class _HomeState extends State<Home> {
           color: Colors.white,
           child: TextFormField(
             decoration: InputDecoration(
-              labelText: "Rechercher sur FindyGo",
-              hintText: "Rechercher sur FindyGo",
+              labelText:
+                  "AppLocalizations.of(context)?.translate3('home', 'rechercher_sur_findygo').toString()",
+              hintText:
+                  "AppLocalizations.of(context)!.translate3('home', 'rechercher_sur_findygo').toString()",
               border: const OutlineInputBorder(
                 borderSide: BorderSide(color: Color(0xFFFF0000)),
                 borderRadius: BorderRadius.all(Radius.circular(1.0)),
@@ -162,7 +163,7 @@ class _HomeState extends State<Home> {
             ),
             validator: (value) {
               if (value != null) {
-                return 'Veuillez saisir un texte';
+                return "AppLocalizations.of(context)!.translate3('home', 'veuillez_saisir_du_texte')";
               }
               return null;
             },
@@ -200,7 +201,8 @@ class _HomeState extends State<Home> {
               Container(
                 padding: const EdgeInsets.all(4.0),
                 alignment: Alignment.centerLeft,
-                child: const Text("Retrouves tes sports préférés",
+                child: Text(
+                    "AppLocalizations.of(context)!.translate3('home', 'retrouve_tes_sports_prefere')",
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold)),
               ),
@@ -208,108 +210,40 @@ class _HomeState extends State<Home> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: const [
-                    SportCard(
-                        name: "arc",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "badminton",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "baseball",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "basket",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "billard",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "bowling",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "boxe",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "corde à sauter",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "echec",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "escrime",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "flechette",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "foot",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "golf",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "gym",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "hockey",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "jet-ski",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "judo",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "kayak",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "moto",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "muscu",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "natation",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "nunchaku",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "parachute",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "patin à glace",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "ping_pong",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "plongee",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "rugby",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "skate",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "ski",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "surf",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "tennis",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "velo",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "voile",
-                        route: ROUTE_SEARCH),
-                    SportCard(
-                        name: "volley",
-                        route: ROUTE_SEARCH),
+                    SportCard(name: "arc", route: ROUTE_SEARCH),
+                    SportCard(name: "badminton", route: ROUTE_SEARCH),
+                    SportCard(name: "baseball", route: ROUTE_SEARCH),
+                    SportCard(name: "basket", route: ROUTE_SEARCH),
+                    SportCard(name: "billard", route: ROUTE_SEARCH),
+                    SportCard(name: "bowling", route: ROUTE_SEARCH),
+                    SportCard(name: "boxe", route: ROUTE_SEARCH),
+                    SportCard(name: "corde à sauter", route: ROUTE_SEARCH),
+                    SportCard(name: "echec", route: ROUTE_SEARCH),
+                    SportCard(name: "escrime", route: ROUTE_SEARCH),
+                    SportCard(name: "flechette", route: ROUTE_SEARCH),
+                    SportCard(name: "foot", route: ROUTE_SEARCH),
+                    SportCard(name: "golf", route: ROUTE_SEARCH),
+                    SportCard(name: "gym", route: ROUTE_SEARCH),
+                    SportCard(name: "hockey", route: ROUTE_SEARCH),
+                    SportCard(name: "jet-ski", route: ROUTE_SEARCH),
+                    SportCard(name: "judo", route: ROUTE_SEARCH),
+                    SportCard(name: "kayak", route: ROUTE_SEARCH),
+                    SportCard(name: "moto", route: ROUTE_SEARCH),
+                    SportCard(name: "muscu", route: ROUTE_SEARCH),
+                    SportCard(name: "natation", route: ROUTE_SEARCH),
+                    SportCard(name: "nunchaku", route: ROUTE_SEARCH),
+                    SportCard(name: "parachute", route: ROUTE_SEARCH),
+                    SportCard(name: "patin à glace", route: ROUTE_SEARCH),
+                    SportCard(name: "ping_pong", route: ROUTE_SEARCH),
+                    SportCard(name: "plongee", route: ROUTE_SEARCH),
+                    SportCard(name: "rugby", route: ROUTE_SEARCH),
+                    SportCard(name: "skate", route: ROUTE_SEARCH),
+                    SportCard(name: "ski", route: ROUTE_SEARCH),
+                    SportCard(name: "surf", route: ROUTE_SEARCH),
+                    SportCard(name: "tennis", route: ROUTE_SEARCH),
+                    SportCard(name: "velo", route: ROUTE_SEARCH),
+                    SportCard(name: "voile", route: ROUTE_SEARCH),
+                    SportCard(name: "volley", route: ROUTE_SEARCH),
                   ],
                 ),
               ),
@@ -330,8 +264,8 @@ class _HomeState extends State<Home> {
                     padding: const EdgeInsets.all(4),
                     margin: const EdgeInsets.only(left: 8, top: 8, right: 8),
                     alignment: Alignment.centerLeft,
-                    child: const Text(
-                      "Nouveautés",
+                    child: Text(
+                      "AppLocalizations.of(context)!.translate3('home', 'nouveautes')",
                       style: TextStyle(
                           color: Colors.black, fontWeight: FontWeight.bold),
                     ),
@@ -341,11 +275,17 @@ class _HomeState extends State<Home> {
                     padding: const EdgeInsets.all(4),
                     margin: const EdgeInsets.only(left: 8, top: 8, right: 8),
                     alignment: Alignment.centerLeft,
-                    child: const Text(
-                      "Voir plus",
-                      style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.normal),
-                    ),
+                    child: InkWell(
+                        child: Text(
+                          "AppLocalizations.of(context)!.translate3('home', 'voir_plus')",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.normal),
+                        ),
+                        onTap: () =>
+                            //TODO: lien à changer
+                            Navigator.of(context)
+                                .pushReplacementNamed(ROUTE_FAVORIS)),
                   ),
                 ],
               ),
@@ -378,7 +318,7 @@ class _HomeState extends State<Home> {
                   decoration:
                       BoxDecoration(border: Border.all(color: Colors.black)),
                   child: InkWell(
-                      child: Text("Afficher plus d'annonces",
+                      child: Text("AppLocalizations.of(context).",
                           textAlign: TextAlign.center),
                       onTap: () =>
                           //TODO: lien à changer
