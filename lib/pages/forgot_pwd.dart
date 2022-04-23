@@ -9,6 +9,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 
+import '../bo/ArgsRoute.dart';
+
 class ForgotPwdPage extends StatefulWidget {
   ///  Attributs ------------------------------------------------------------------
   /// */
@@ -31,6 +33,7 @@ class _ForgotPwdPageState extends State<ForgotPwdPage> {
 
   // declare a variable to keep track of the input text
   String emailUserInput = '';
+  ArgsRoute _ags = new ArgsRoute("From some where");
 
   // Lorsque l'on demande à soumettre le formulaire, on check les inputs
   bool isButtonDisabled = false;
@@ -221,7 +224,7 @@ class _ForgotPwdPageState extends State<ForgotPwdPage> {
                           Container(height: 10),
                           Container(
                               color: Colors.white,
-                              height: 180,
+                              height: 160,
                               child: Form(
                                   key: _formKey,
                                   child: Column(
@@ -231,23 +234,14 @@ class _ForgotPwdPageState extends State<ForgotPwdPage> {
                                       children: [
                                         _buildEmailField(),
                                         const SizedBox(
-                                          height: 30,
+                                          height: 20,
                                         ),
                                         //_buildRegistrationButton(context),
                                         btRequestNewPassword(context),
                                       ]))),
                           //const SizedBox(height:0,),
-                          const Spacer(),
-                          Image.network(
-                            "https://c.neh.tw/thumb/f/720/49999f336e344fb0b7b6.jpg",
-                            width: MediaQuery.of(context).size.width * 0.9,
-                            //height: 300,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
                           Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+
                               children: <Widget>[
                                 _buildLoginButton(context),
                               ]),
@@ -263,60 +257,59 @@ class _ForgotPwdPageState extends State<ForgotPwdPage> {
   /// */
 
   Widget _logo() => SizedBox(
-        width: 80.0,
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Image.asset(
-            'assets/pictures/logo.png',
-            width: 50,
-            height: 50,
-          ),
-        ),
-      );
+    width: 150,
+    child: Padding (
+      padding: EdgeInsets.only(bottom: 20),
+      child: Image.asset(
+        'assets/pictures/logo.png',
+      ),
+    ),
+  );
 
   Widget _bodyTitle() => SizedBox(
-      width: MediaQuery.of(context).size.width * 0.9,
+      width: 300.0,
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: const <Widget>[
             Padding(
-                padding: EdgeInsets.only(bottom: 10),
+                padding: EdgeInsets.only(bottom: 30),
                 child: Text(
-                  "Mot de passe oublié",
+                  "MOT DE PASSE OUBLIÉ",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Color.fromARGB(255, 111, 207, 151)),
+                      fontSize: 28,
+                      color: Colors.black),
                 ))
           ]));
 
-  Widget _buildEmailField() => SizedBox(
-      width: 200.0,
-      child: TextFormField(
-        controller: widget.tecEmail,
-        keyboardType: TextInputType.emailAddress,
-        textInputAction: TextInputAction.next,
-        decoration: InputDecoration(
-          labelText: "Email",
-          hintText: "Email",
-          prefixIcon: IconButton(
-            icon: const Icon(Icons.account_circle_outlined),
-            onPressed: () {},
+  Widget _buildEmailField() => Padding (
+      padding: EdgeInsets.only(bottom: 10),
+      child : SizedBox(
+        width: 200.0,
+        child: TextFormField(
+          controller: widget.tecEmail,
+          keyboardType: TextInputType.emailAddress,
+          textInputAction: TextInputAction.next,
+          decoration: InputDecoration(
+            labelText: "Email",
+            hintText: "Email",
+            border: OutlineInputBorder(),
           ),
-        ),
-        autovalidateMode: isButtonDisabled
-            ? AutovalidateMode.onUserInteraction
-            : AutovalidateMode.disabled,
-        // use the validator to return an error string (or null) based on the input text
-        validator: (text) {
-          if (!checkEmailOk(text!)) {
-            return 'Format email invalide !';
-          }
-          return null;
-        },
-        // update the state variable when the text changes
-        onChanged: (text) => setState(() => emailUserInput = text),
-      ));
+          autovalidateMode: isButtonDisabled
+              ? AutovalidateMode.onUserInteraction
+              : AutovalidateMode.disabled,
+          // use the validator to return an error string (or null) based on the input text
+          validator: (text) {
+            if (!checkEmailOk(text!)) {
+              return 'Format email invalide !';
+            }
+            return null;
+          },
+          // update the state variable when the text changes
+          onChanged: (text) => setState(() => emailUserInput = text),
+        )
+      )
+  );
 
   Widget _buildRegistrationButton(BuildContext context) {
     return Padding(
@@ -337,16 +330,13 @@ class _ForgotPwdPageState extends State<ForgotPwdPage> {
 
   Widget btRequestNewPassword(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(vertical: 5),
       child: ElevatedButton(
-          child: const Text('Envoyer réinitialisation sur ma boîte ',
-              style: TextStyle(color: Colors.white, fontSize: 20)),
+          child: const Text('Envoyer email',
+              style: TextStyle(color: Colors.black, fontSize: 20)),
           style: ElevatedButton.styleFrom(
-              primary: const Color(0xFF6FCF97),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              fixedSize: const Size(100, 50)),
+            padding: EdgeInsets.symmetric(vertical: 15),
+            primary: const Color(0xFFC1D2D9)),
           onPressed: () {
             // Retour à la page d'acceuil si les informations
             // pour la création d'un nouveau compte sont correcte
@@ -377,11 +367,11 @@ class _ForgotPwdPageState extends State<ForgotPwdPage> {
   /// */
 
   Widget _buildLoginButton(BuildContext context) {
-    return OutlinedButton(
-      child: const Text("Accueil"),
+    return FlatButton(
+      child: const Text("Se connecter"),
       onPressed: () => {
         // Aller à la page loggin
-        Navigator.of(context).pushReplacementNamed(ROUTE_SEARCH)
+        Navigator.of(context).pushReplacementNamed(ROUTE_ACCOUNT, arguments: _ags)
       },
     );
   }

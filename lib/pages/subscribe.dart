@@ -38,6 +38,7 @@ class _SubscribeState extends State<Subscribe> {
   String pseudoUserInput = '';
   String passwordUserInput = '';
   String passwordUserInput2 = '';
+  ArgsRoute _ags = new ArgsRoute("From some where");
 
   // Lorsque l'on demande à soumettre le formulaire, on check les inputs
   bool isButtonDisabled = false;
@@ -109,21 +110,11 @@ class _SubscribeState extends State<Subscribe> {
                                     _buildRegistrationButton(context),
                                   ]))),
                           //const SizedBox(height:0,),
-                          const Spacer(),
-                          Image.network(
-                            "http://img.over-blog.com/610x343/5/73/33/24/BLOG/TOP-201.jpg",
-                            width: MediaQuery.of(context)
-                                .size
-                                .width *
-                                0.9,
-                            //height: 200,
-                          ),
                           const SizedBox(
                             height: 10,
                           ),
-                          Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: <Widget>[
+                          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
                             _buildLoginButton(context),
-                            _buildForgotPasswordButton(context),
                           ]),
                           const SizedBox(
                             height:20,
@@ -137,44 +128,43 @@ class _SubscribeState extends State<Subscribe> {
   /// */
 
   Widget _logo() => SizedBox(
-        width: 80.0,
+        width: 150.0,
         child: Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.only(bottom: 20),
           child: Image.asset(
             'assets/pictures/logo.png',
-            width: 50,
-            height: 50,
           ),
         ),
       );
 
   Widget _bodyTitle() => SizedBox(
-      width: 200.0,
+      width: 250.0,
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children:const <Widget>[
+          children: const <Widget>[
             Padding(
                 padding: EdgeInsets.only(bottom: 10),
-                child:
-                Text(
-                  "Créer un compte",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Color.fromARGB(255, 111, 207, 151)),
+                child: Text(
+                  "INSCRIPTION",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 28,
+                      color: Colors.black),
                 ))
           ]));
 
-  Widget _buildEmailField() => SizedBox(
-      width: 200.0,
-      child: TextFormField(
+  Widget _buildEmailField() => Padding(
+      padding: EdgeInsets.only(bottom: 20),
+      child: SizedBox(
+          width: 200.0,
+          child: TextFormField(
         controller: widget.tecEmail,
         keyboardType: TextInputType.emailAddress,
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           labelText: "Email",
           hintText: "Email",
-          prefixIcon: IconButton(
-            icon: const Icon(Icons.account_circle_outlined),
-            onPressed: () {},
-          ),
+          border: OutlineInputBorder(),
         ),
         autovalidateMode: isButtonDisabled ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
         // use the validator to return an error string (or null) based on the input text
@@ -186,9 +176,11 @@ class _SubscribeState extends State<Subscribe> {
         },
         // update the state variable when the text changes
         onChanged: (text) => setState(() => emailUserInput = text),
-      ));
+      )));
 
-  Widget _buildUsernameField() => SizedBox(
+  Widget _buildUsernameField() => Padding(
+      padding: EdgeInsets.only(bottom: 20),
+      child: SizedBox(
         width: 200.0,
         child: TextFormField(
           controller: widget.tecId,
@@ -197,10 +189,7 @@ class _SubscribeState extends State<Subscribe> {
           decoration: InputDecoration(
             labelText: "Pseudo",
             hintText: "Pseudo",
-            prefixIcon: IconButton(
-              icon: const Icon(Icons.alternate_email),
-              onPressed: () {},
-            ),
+            border: OutlineInputBorder(),
           ),
           autovalidateMode: isButtonDisabled ? AutovalidateMode.onUserInteraction : AutovalidateMode.disabled,
           // use the validator to return an error string (or null) based on the input text
@@ -218,9 +207,11 @@ class _SubscribeState extends State<Subscribe> {
           // update the state variable when the text changes
           onChanged: (text) => setState(() => pseudoUserInput = text),
         ),
-      );
+      ));
 
-  Widget _buildPasswordField() => SizedBox(
+  Widget _buildPasswordField() => Padding(
+      padding: EdgeInsets.only(bottom: 20),
+      child: SizedBox(
         width: 200.0,
         child: TextFormField(
           controller: widget.tecPwd,
@@ -229,10 +220,7 @@ class _SubscribeState extends State<Subscribe> {
           decoration: InputDecoration(
             labelText: "Mot de passe",
             hintText: "Mot de passe",
-            prefixIcon: IconButton(
-              icon: const Icon(Icons.lock_outline_rounded),
-              onPressed: () {},
-            ),
+            border: OutlineInputBorder(),
             suffixIcon: IconButton(
               onPressed: () => updateStatus(),
               icon: Icon(_isPasswordVisible ? Icons.visibility : Icons.visibility_off),
@@ -250,9 +238,11 @@ class _SubscribeState extends State<Subscribe> {
           // update the state variable when the text changes
           onChanged: (text) => setState(() => passwordUserInput = text),
         ),
-      );
+      ));
 
-  Widget _buildPasswordField2() => SizedBox(
+  Widget _buildPasswordField2() => Padding(
+      padding: EdgeInsets.only(bottom: 20),
+      child: SizedBox(
         width: 200.0,
         child: TextFormField(
           controller: widget.tecPwd2,
@@ -261,10 +251,7 @@ class _SubscribeState extends State<Subscribe> {
           decoration: InputDecoration(
             labelText: "Confirmation mot de passe",
             hintText: "Confirmation mot de passe",
-            prefixIcon: IconButton(
-              icon: const Icon(Icons.lock_outline_rounded),
-              onPressed: () {},
-            ),
+            border: OutlineInputBorder(),
             suffixIcon: IconButton(
               onPressed: () => updateStatus(),
               icon: Icon(_isPasswordVisible ? Icons.visibility : Icons.visibility_off),
@@ -282,7 +269,7 @@ class _SubscribeState extends State<Subscribe> {
           // update the state variable when the text changes
           onChanged: (text) => setState(() => passwordUserInput2 = text),
         ),
-      );
+      ));
 
   void updateStatus() {
     // Flip flop pour la visibilité du password
@@ -293,14 +280,12 @@ class _SubscribeState extends State<Subscribe> {
 
   Widget _buildRegistrationButton(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.only(top: 25),
       child: ElevatedButton(
-        child: const Text('Créer', style: TextStyle(color: Colors.white, fontSize: 20)),
+        child: const Text("INSCRIPTION", style: TextStyle(color: Colors.black, fontSize: 20)),
         style: ElevatedButton.styleFrom(
-          primary: const Color(0xFF6FCF97),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
+          padding: EdgeInsets.symmetric(vertical: 15),
+          primary: const Color(0xFFC1D2D9),
         ),
         onPressed: () => emailUserInput.isNotEmpty && pseudoUserInput.isNotEmpty && passwordUserInput.isNotEmpty && passwordUserInput2.isNotEmpty
             ? _submit()
@@ -313,21 +298,11 @@ class _SubscribeState extends State<Subscribe> {
   /// */
 
   Widget _buildLoginButton(BuildContext context) {
-    return OutlinedButton(
-      child: const Text("Se connecter"),
+    return FlatButton(
+      child: const Text("Déjà un compte ?"),
       onPressed: () => {
         // Aller à la page loggin
-        Navigator.of(context).pushReplacementNamed(ROUTE_LOGIN)
-      },
-    );
-  }
-
-  Widget _buildForgotPasswordButton(BuildContext context) {
-    return OutlinedButton(
-      child: const Text("Mot de passe oublié"),
-      onPressed: () => {
-        // Aller à la page mot de passe oublier
-        Navigator.of(context).pushReplacementNamed(ROUTE_FORGOT_PASSWORD)
+        Navigator.of(context).pushReplacementNamed(ROUTE_ACCOUNT, arguments: _ags)
       },
     );
   }

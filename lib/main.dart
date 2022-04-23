@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     const appName = 'FindyGo';
 
+
     return MaterialApp(
         // Commande pour générer flutter_gen: "flutter gen-l10n"
         localizationsDelegates: [
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.white,
 
           // Define the default font family.
-          fontFamily: 'Georgia',
+          fontFamily: 'Montserrat',
 
           // Define the default `TextTheme`. Use this to specify the default
           // text styling for headlines, titles, bodies of text, and more.
