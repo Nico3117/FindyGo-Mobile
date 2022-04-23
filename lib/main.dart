@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     const appName = 'FindyGo';
 
+
     return MaterialApp(
       // Affichage de la bannière Mode Debug
         debugShowCheckedModeBanner: ConstApp.ADMIN_MODE,
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.white,
 
           // Define the default font family.
-          fontFamily: 'Georgia',
+          fontFamily: 'Montserrat',
 
           // Define the default `TextTheme`. Use this to specify the default
           // text styling for headlines, titles, bodies of text, and more.

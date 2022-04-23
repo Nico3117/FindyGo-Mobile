@@ -1,3 +1,4 @@
+import 'package:findygo/bo/ArgsRoute.dart';
 import 'package:findygo/constants/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -128,7 +129,8 @@ class _MyBottomBarState extends State<MyBottomBar> {
           break;
         case 4:
           {
-            Navigator.of(context).pushReplacementNamed(ROUTE_ACCOUNT);
+            ArgsRoute _ags = new ArgsRoute("From some where");
+            Navigator.of(context).pushNamed(ROUTE_ACCOUNT, arguments: _ags);
           }
           break;
         default:

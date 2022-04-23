@@ -51,6 +51,7 @@ class _LoginPageState extends State<LoginPage> {
   bool _checkBoxSaveIds = false;
 
   late ArgsRoute args;
+  ArgsRoute _ags = new ArgsRoute("From some where");
 
   void _submit() {
     // On controle les inputs avant la soumission du formulaire
@@ -167,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget _logo() => SizedBox(
     width: 150,
     child: Padding (
-      padding: EdgeInsets.only(bottom: 30),
+      padding: EdgeInsets.only(bottom: 20),
       child: Image.asset(
         'assets/pictures/logo.png',
       ),
@@ -289,7 +290,7 @@ class _LoginPageState extends State<LoginPage> {
       child: const Text("Pas de compte ?"),
       onPressed: () => {
         // Aller à la page souscription
-        Navigator.of(context).pushReplacementNamed(ROUTE_SUBSCRIBE)
+        Navigator.of(context).pushReplacementNamed(ROUTE_SUBSCRIBE, arguments: _ags)
       },
     );
   }
