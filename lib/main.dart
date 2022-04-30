@@ -10,6 +10,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'bo/ArgsRoute.dart';
 import 'constants/routes.dart';
 import 'pages/home.dart';
+import 'package:findygo/pages/checkConnexion.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -85,8 +86,8 @@ class MyApp extends StatelessWidget {
         ),*/
         ),
         // Route initiale
-        home: Home(),
-        // home: const CheckConnexion(),
+        // home: Home(),
+        home: const CheckConnexion(),
 
         // Routes sans paramètres
         routes: <String, WidgetBuilder>{
