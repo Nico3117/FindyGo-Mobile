@@ -10,6 +10,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'bo/ArgsRoute.dart';
 import 'constants/routes.dart';
 import 'pages/home.dart';
+import 'package:findygo/pages/checkConnexion.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const appName = 'FindyGo';
+
 
     return MaterialApp(
         // Commande pour générer flutter_gen: "flutter gen-l10n"
@@ -55,7 +57,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.white,
 
           // Define the default font family.
-          fontFamily: 'Georgia',
+          fontFamily: 'Montserrat',
 
           // Define the default `TextTheme`. Use this to specify the default
           // text styling for headlines, titles, bodies of text, and more.
@@ -84,8 +86,8 @@ class MyApp extends StatelessWidget {
         ),*/
         ),
         // Route initiale
-        home: Home(),
-        // home: const CheckConnexion(),
+        // home: Home(),
+        home: const CheckConnexion(),
 
         // Routes sans paramètres
         routes: <String, WidgetBuilder>{

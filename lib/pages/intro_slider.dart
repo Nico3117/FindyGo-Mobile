@@ -97,7 +97,7 @@ class _IntroScreenStateState extends State<IntroScreenState> {
   void onDonePress() {
     // Quand l'utilisateur valide le dernier slide
     // Aller à la page Home
-    Navigator.of(context).pushNamed(ROUTE_HOME);
+    Navigator.of(context).pushNamed(ROUTE_SEARCH);
   }
 
   void onNextPress() {
