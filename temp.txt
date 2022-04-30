@@ -1,11 +1,9 @@
-import 'package:findygo/pages/checkConnexion.dart';
 import 'package:findygo/pages/favoris.dart';
 import 'package:findygo/pages/intro_slider.dart';
 import 'package:findygo/pages/login_page.dart';
 import 'package:findygo/pages/forgot_pwd.dart';
 import 'package:findygo/pages/publish_page.dart';
 import 'package:findygo/pages/subscribe.dart';
-import 'package:findygo/theme/theme_constants.dart';
 import 'package:findygo/theme/theme_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:findygo/constants/constantes.dart';
@@ -45,14 +43,52 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: ConstApp.ADMIN_MODE,
         title: appName,
 
-    //    theme: lightTheme,
-    //    darkTheme: darkTheme,
-    //    themeMode: ThemeMode.system,
-        // ThemeMode.system "pour changer le thème en fonction du mode du téléphone"
-        //themeMode: _themeManager.themeMode,
-        //
-        // home: Home(),
-        home: const CheckConnexion(),
+        // Permet de basculer automatiquement entre le style bright ou dark de l'appareil
+        themeMode: ThemeMode.system,
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+        ),
+        theme: ThemeData(
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+
+          // Define the default brightness and colors.
+          brightness: Brightness.light,
+          primaryColor: const Color.fromARGB(255, 111, 207, 151),
+          //primarySwatch: Colors.white60,
+          backgroundColor: Colors.white,
+
+          // Define the default font family.
+          fontFamily: 'Georgia',
+
+          // Define the default `TextTheme`. Use this to specify the default
+          // text styling for headlines, titles, bodies of text, and more.
+          /*textTheme: const TextTheme(
+          headline1: TextStyle(fontSize: 45.0, fontWeight: FontWeight.bold),
+          headline2: TextStyle(fontSize: 35.0, fontWeight: FontWeight.bold),
+          headline3: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
+          headline4: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+          headline5: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+          headline6: TextStyle(
+              fontSize: 15.0,
+              fontStyle: FontStyle.normal,
+              color: Color.fromARGB(150, 0, 0, 0),
+              backgroundColor: Color.fromARGB(255, 111, 207, 151)),
+          subtitle1: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+          subtitle2: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+          bodyText1: TextStyle(fontSize: 20.0, fontFamily: 'Hind'),
+          bodyText2: TextStyle(fontSize: 15.0, fontFamily: 'Hind'),
+          caption: TextStyle(fontSize: 20.0, fontFamily: 'Hind'),
+          button: TextStyle(
+              fontSize: 20.0,
+              fontFamily: 'Hind',
+              color: Color.fromARGB(150, 0, 0, 0),
+              backgroundColor: Color.fromARGB(255, 111, 207, 151)),
+          overline: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+        ),*/
+        ),
+        // Route initiale
+        home: Home(),
+        // home: const CheckConnexion(),
 
         // Routes sans paramètres
         routes: <String, WidgetBuilder>{

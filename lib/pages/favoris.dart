@@ -16,7 +16,7 @@ class Favoris extends StatefulWidget {
 class _FavorisState extends State<Favoris> {
   final String title = "FindyGo";
 
-  final Color backgroundColor = const Color.fromARGB(255, 111, 207, 151);
+//  final Color backgroundColor = const Color.fromARGB(255, 111, 207, 151);
 
   // index de la bottomAppBar
   int _currentIndexBottomAppBar = 0;
@@ -60,54 +60,45 @@ class _FavorisState extends State<Favoris> {
   /// Widgets ------------------------------------------------
   ///
 
-  Widget _mesAnnonces() =>
-      GridView.builder(
+  Widget _mesAnnonces() => GridView.builder(
         gridDelegate:
-        const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemCount: lstHomme.length,
         itemBuilder: (context, index) {
           // Variable intermédiaire pour diminuer la longueur de la variable
           var _item = lstHomme[index];
 
           return GestureDetector(
-              onTap: () =>
-                  showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) =>
-                          AlertDialog(
-                              title: Text('Voulez-vous réserver pour le ' +
-                                  lstHomme
-                                      .elementAt(index)
-                                      .firstname),
-                              content: Column(
-                                mainAxisAlignment: MainAxisAlignment
-                                    .spaceEvenly,
-                                children: <Widget>[
-                                  Container(
-                                    width: 200,
-                                    height: 200,
-                                    child: Image.asset(
-                                        lstHomme
-                                            .elementAt(index)
-                                            .pictureUrl),
-                                  ),
-                                  const Text(
-                                      '10% de remise pour une réservation à partir de 4 nuits.'),
-                                ],
+              onTap: () => showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                          title: Text('Voulez-vous réserver pour le ' +
+                              lstHomme.elementAt(index).firstname),
+                          content: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Container(
+                                width: 200,
+                                height: 200,
+                                child: Image.asset(
+                                    lstHomme.elementAt(index).pictureUrl),
                               ),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(context, 'Cancel'),
-                                  child: const Text('Cancel'),
-                                ),
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context, 'OK'),
-                                  child: const Text('OK'),
-                                ),
-                              ])),
+                              const Text(
+                                  '10% de remise pour une réservation à partir de 4 nuits.'),
+                            ],
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'Cancel'),
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'OK'),
+                              child: const Text('OK'),
+                            ),
+                          ])),
               child: Card(
-                color: Colors.teal,
+                // color: Colors.teal,
                 elevation: 3.0,
                 child: Container(
                   padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
@@ -119,11 +110,9 @@ class _FavorisState extends State<Favoris> {
                           child: Container(
                             width: 100,
                             height: 100,
-                            child: Image.asset(lstHomme
-                                .elementAt(index)
-                                .pictureUrl),
-                          )
-                      ),
+                            child: Image.asset(
+                                lstHomme.elementAt(index).pictureUrl),
+                          )),
                       _buildDivider(),
                       Text(
                         _item.toString(),
@@ -134,9 +123,7 @@ class _FavorisState extends State<Favoris> {
                       ),
                       _buildDivider(),
                       Text(
-                        lstHomme
-                            .elementAt(index)
-                            .lastname,
+                        lstHomme.elementAt(index).lastname,
                         style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -158,93 +145,87 @@ class _FavorisState extends State<Favoris> {
     );
   }
 
-  Widget _buildTabBar() =>
-      Center(
-          child: DefaultTabController(
-              length: 2,
-              child: Scaffold(
-                appBar: AppBar(
-                  bottom: const TabBar(
-                    tabs: [
-                      Tab(child: Text("Mes annonces")),
-                      Tab(child: Text("Mes recherches")),
-                    ],
-                  ),
-                  title: const Text('Favoris'),
-                ),
-                body: TabBarView(
-                  children: [
-                    Center(child: _mesAnnonces()),
-                    Center(child: Text("Transit")),
-                  ],
-                ),
-              )));
+  Widget _buildTabBar() => Center(
+      child: DefaultTabController(
+          length: 2,
+          child: Scaffold(
+            appBar: AppBar(
+              bottom: const TabBar(
+                tabs: [
+                  Tab(child: Text("Mes annonces")),
+                  Tab(child: Text("Mes recherches")),
+                ],
+              ),
+              title: const Text('Favoris'),
+            ),
+            body: TabBarView(
+              children: [
+                Center(child: _mesAnnonces()),
+                Center(child: Text("Transit")),
+              ],
+            ),
+          )));
 
-  Widget _bottomNavBar() =>
-      Theme(
-          data: Theme.of(context).copyWith(
-              canvasColor: Colors.orange,
-              primaryColor: Colors.deepPurple,
-              textTheme: Theme
+  Widget _bottomNavBar() => Theme(
+      data: Theme.of(context).copyWith(
+          //   canvasColor: Colors.orange,
+          //      primaryColor: Colors.deepPurple,
+          /*    textTheme: Theme
                   .of(context)
                   .textTheme
-                  .copyWith(caption: const TextStyle(color: Colors.yellow))),
-          child: BottomNavigationBar(
-            unselectedItemColor: Colors.black,
-            selectedItemColor: const Color.fromARGB(255, 111, 207, 151),
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.white,
-            elevation: 1,
-            currentIndex: _currentIndexBottomAppBar,
-            onTap: _onItemTapped,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                activeIcon:
-                Icon(Icons.search, color: Color.fromARGB(255, 111, 207, 151)),
-                icon: Icon(
-                  Icons.search,
-                  color: Colors.black,
-                ),
-                label: 'Rechercher',
-              ),
-              BottomNavigationBarItem(
-                activeIcon: Icon(Icons.favorite_border,
-                    color: Color.fromARGB(255, 111, 207, 151)),
-                icon: Icon(
-                  Icons.favorite_border,
-                  color: Colors.black,
-                ),
-                label: 'Favoris',
-              ),
-              BottomNavigationBarItem(
-                activeIcon: Icon(Icons.publish_outlined,
-                    color: Color.fromARGB(255, 111, 207, 151)),
-                icon: Icon(
-                  Icons.publish_outlined,
-                  color: Colors.black,
-                ),
-                label: 'Publier',
-              ),
-              BottomNavigationBarItem(
-                activeIcon:
-                Icon(Icons.chat, color: Color.fromARGB(255, 111, 207, 151)),
-                icon: Icon(
-                  Icons.chat,
-                  color: Colors.black,
-                ),
-                label: 'Messages',
-              ),
-              BottomNavigationBarItem(
-                activeIcon: Icon(Icons.account_circle_outlined,
-                    color: Color.fromARGB(255, 111, 207, 151)),
-                icon: Icon(
-                  Icons.account_circle_outlined,
-                  color: Colors.black,
-                ),
-                label: 'Compte',
-              ),
-            ],
-          ));
+                  .copyWith(caption: const TextStyle(color: Colors.yellow))*/
+          ),
+      child: BottomNavigationBar(
+        unselectedItemColor: Colors.black,
+        //selectedItemColor: const Color.fromARGB(255, 111, 207, 151),
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.white,
+        elevation: 1,
+        currentIndex: _currentIndexBottomAppBar,
+        onTap: _onItemTapped,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            activeIcon: Icon(Icons.search),
+            icon: Icon(
+              Icons.search,
+              color: Colors.black,
+            ),
+            label: 'Rechercher',
+          ),
+          BottomNavigationBarItem(
+            activeIcon: Icon(Icons.favorite_border),
+            icon: Icon(
+              Icons.favorite_border,
+              color: Colors.black,
+            ),
+            label: 'Favoris',
+          ),
+          BottomNavigationBarItem(
+            activeIcon: Icon(Icons.publish_outlined),
+            icon: Icon(
+              Icons.publish_outlined,
+              color: Colors.black,
+            ),
+            label: 'Publier',
+          ),
+          BottomNavigationBarItem(
+            activeIcon: Icon(Icons.chat),
+            icon: Icon(
+              Icons.chat,
+              color: Colors.black,
+            ),
+            label: 'Messages',
+          ),
+          BottomNavigationBarItem(
+            activeIcon: Icon(Icons.account_circle_outlined),
+            icon: Icon(
+              Icons.account_circle_outlined,
+              color: Colors.black,
+            ),
+            label: 'Compte',
+          ),
+        ],
+      ));
 
   void _onItemTapped(int index) {
     setState(() {

@@ -12,7 +12,7 @@
 
    <application
         android:label="findygo"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@mipmap/logo_new3">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

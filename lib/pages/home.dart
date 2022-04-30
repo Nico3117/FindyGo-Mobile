@@ -9,12 +9,11 @@ import 'package:findygo/widgets/sport_card.dart';
 import 'package:flutter/material.dart';
 
 //import '../helpers/AppLocalizations.dart';
+import '../theme/theme_manager.dart';
 import '../widgets/card_home_nouveautes.dart';
 
 class Home extends StatefulWidget {
-  Home({
-    Key? key,
-  }) : super(key: key);
+  Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -42,9 +41,15 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    super.initState();
     lstHomme = ImagesTests.fetchListeFavoris("Homme");
     _currentIndexBottomAppBar = 0;
+    super.initState();
+  }
+
+  themeListener() {
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override
@@ -109,8 +114,7 @@ class _HomeState extends State<Home> {
             decoration: InputDecoration(
               labelText:
                   AppLocalizations.of(context).home_search_for_more_items,
-              hintText:
-                  AppLocalizations.of(context).home_search_for_more_items,
+              hintText: AppLocalizations.of(context).home_search_for_more_items,
               border: const OutlineInputBorder(
                 borderSide: BorderSide(color: Color(0xFFFF0000)),
                 borderRadius: BorderRadius.all(Radius.circular(1.0)),
@@ -148,7 +152,7 @@ class _HomeState extends State<Home> {
             flexibleSpace: FlexibleSpaceBar(
                 centerTitle: true,
                 background: Container(
-                  color: Colors.white,
+                  // color: Colors.white,
                   height: 300,
                   child: _buildPasswordField(),
                 ))),
@@ -161,7 +165,8 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.all(4.0),
                 alignment: Alignment.centerLeft,
                 child: Text(
-                    AppLocalizations.of(context).home_find_tour_favorites_sports,
+                    AppLocalizations.of(context)
+                        .home_find_tour_favorites_sports,
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold)),
               ),
@@ -277,7 +282,9 @@ class _HomeState extends State<Home> {
                   decoration:
                       BoxDecoration(border: Border.all(color: Colors.black)),
                   child: InkWell(
-                      child: Text(AppLocalizations.of(context).home_search_for_more_items,
+                      child: Text(
+                          AppLocalizations.of(context)
+                              .home_search_for_more_items,
                           textAlign: TextAlign.center),
                       onTap: () =>
                           //TODO: lien à changer

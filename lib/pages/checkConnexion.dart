@@ -65,7 +65,11 @@ class _CheckConnexionState extends State<CheckConnexion> {
     const _storage = FlutterSecureStorage();
     isFirstTimeAppOpened = await _storage.read(key: "isFirstTimeAppOpened");
 
-    setState(() {
+    if(isFirstTimeAppOpened == null || isFirstTimeAppOpened ==""){
+      await _storage.write(key: "isFirstTimeAppOpened", value: "true");
+    }
+
+    setState(() async {
       _connectionStatus = result;
 
       // Si il n'y a pas de réseau wifi ou téléphone, on affiche un message
@@ -104,20 +108,18 @@ class _CheckConnexionState extends State<CheckConnexion> {
 
         // Si c'est la première fois que l'on lance l'application sur
         // le terminal, afficher l'Intro Slider
-        if (true) { // isFirstTimeAppOpened == "false"
+        if (isFirstTimeAppOpened == "false") {
           // Aller à la page Home
           Navigator.of(context).pushNamed(ROUTE_SEARCH);
           // String? monJwt = await all. storage.read(key: "jwt");
         } else {
+          // Met à jour comme quoi l'Intro Slider à été vu une première fois
+          await _storage.write(key: "isFirstTimeAppOpened", value: "false");
           // Sinon, aller directement à la page Home
           Navigator.of(context).pushNamed(ROUTE_INTRO_SLIDER);
         }
       }
     });
-
-    // Met à jour comme quoi l'Intro Slider à été vu une première fois
-    await _storage.write(key: "isFirstTimeAppOpened", value: "true");
-
   }
 
   @override

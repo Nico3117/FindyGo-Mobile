@@ -29,7 +29,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_localizations:
+  flutter_localizations: # Commande pour générer flutter_gen: "flutter gen-l10n"
     sdk: flutter
   intl: ^0.17.0
   font_awesome_flutter: ^10.1.0
@@ -52,6 +52,7 @@ dependencies:
   bottom_nav_bar: ^1.0.3
   select_form_field: ^2.2.0
   adaptive_theme: ^2.3.0
+
 
 dev_dependencies:
   flutter_test:
@@ -116,4 +117,4 @@ flutter:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/pictures/logo_new.png"
+  image_path: "assets/pictures/logo_new3.png"

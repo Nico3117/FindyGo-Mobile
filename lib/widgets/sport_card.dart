@@ -11,7 +11,7 @@ class SportCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: Color(0xffeeeeee), width: 0.0),
-        color: Colors.black,
+      //  color: Colors.black,
         borderRadius: const BorderRadius.all(Radius.circular(0.0)),
         boxShadow: const [
           BoxShadow(
@@ -35,7 +35,8 @@ class SportCard extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   fontSize: 12.0,
                   color: Colors.white,
-                  backgroundColor: Colors.black),
+              //    backgroundColor: Colors.black
+                ),
             ),
           ])
         ]),
