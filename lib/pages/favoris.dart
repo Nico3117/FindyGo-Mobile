@@ -17,8 +17,6 @@ class Favoris extends StatefulWidget {
 class _FavorisState extends State<Favoris> {
   final String title = "FindyGo";
 
-  final Color backgroundColor = const Color.fromARGB(255, 111, 207, 151);
-
   // index de la bottomAppBar
   int _currentIndexBottomAppBar = 0;
 
@@ -44,11 +42,11 @@ class _FavorisState extends State<Favoris> {
     return Scaffold(
       extendBodyBehindAppBar: false,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(0.0),
+        preferredSize: const Size.fromHeight(10.0),
         child: AppBar(
           //leading: Container(child: const Text("Favoris", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25, fontStyle: FontStyle.normal),)),
           leading: Container(),
-          backgroundColor: const Color(0x00000000),
+          backgroundColor: Colors.white,
           elevation: 0,
         ),
       ),
@@ -60,49 +58,40 @@ class _FavorisState extends State<Favoris> {
   /// Widgets ------------------------------------------------
   ///
 
-  Widget _mesAnnonces() =>
-      GridView.builder(
+  Widget _mesAnnonces() => GridView.builder(
         gridDelegate:
-        const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemCount: lstHomme.length,
         itemBuilder: (context, index) {
           // Variable intermédiaire pour diminuer la longueur de la variable
           var _item = lstHomme[index];
 
           return GestureDetector(
-              onTap: () =>
-                  showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) =>
-                          AlertDialog(
-                              title: Text('Article de ' +
-                                  lstHomme
-                                      .elementAt(index)
-                                      .firstname),
-                              content: Column(
-                                mainAxisAlignment: MainAxisAlignment
-                                    .spaceEvenly,
-                                children: <Widget>[
-                                  Container(
-                                    child: Image.asset(
-                                        lstHomme
-                                            .elementAt(index)
-                                            .pictureUrl),
-                                  ),
-                                  Text(lstHomme.elementAt(index).shortDescription),
-                                ],
+              onTap: () => showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                          title: Text('Article de ' +
+                              lstHomme.elementAt(index).firstname),
+                          content: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Container(
+                                child: Image.asset(
+                                    lstHomme.elementAt(index).pictureUrl),
                               ),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(context, 'Cancel'),
-                                  child: const Text('Cancel'),
-                                ),
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context, 'OK'),
-                                  child: const Text('OK'),
-                                ),
-                              ])),
+                              Text(lstHomme.elementAt(index).shortDescription),
+                            ],
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'Cancel'),
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'OK'),
+                              child: const Text('OK'),
+                            ),
+                          ])),
               child: Card(
                 color: Color(0xFFEBEBEB),
                 elevation: 3.0,
@@ -113,39 +102,31 @@ class _FavorisState extends State<Favoris> {
                         padding: const EdgeInsets.all(5),
                         child: Text(
                           lstHomme.elementAt(index).lastname,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold
-                          ),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
                       Padding(
                           padding: const EdgeInsets.all(5),
                           child: Container(
-                              width: 110,
-                              height: 110,
-                              child: Image.asset(
-                                  lstHomme.elementAt(index).pictureUrl
-                              ),
-                          )
-                      ),
+                            width: 100,
+                            height: 100,
+                            child: Image.asset(
+                                lstHomme.elementAt(index).pictureUrl),
+                          )),
                       Padding(
                         padding: const EdgeInsets.all(5),
                         child: Text(
                           lstHomme.elementAt(index).shortDescription,
-                          style: const TextStyle (
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15
-                          ),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 15),
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top:3),
+                        padding: const EdgeInsets.only(top: 3),
                         child: Text(
                           lstHomme.elementAt(index).price.toString() + '€',
-                          style: const TextStyle (
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15
-                          ),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 15),
                         ),
                       ),
                       const Spacer(),
@@ -164,37 +145,52 @@ class _FavorisState extends State<Favoris> {
   }
 
   Widget _buildTabBar() =>
-      Center(
-          child: DefaultTabController(
-              length: 1,
-              child: Scaffold(
-                appBar: AppBar(
-                  backgroundColor: Color(0xFFFFFFFF),
-                  bottom: const TabBar(
-                    tabs: [
-                      Tab(child: Text("Favoris", textAlign: TextAlign.left,)),
-                      // Tab(child: Text("Mes recherches")),
-                    ],
+      // Center(
+      // child:
+      DefaultTabController(
+          length: 1,
+          child: Scaffold(
+            appBar: AppBar(
+              leading: Container(),
+              leadingWidth: 0,
+              backgroundColor: Colors.white,
+              // Color(0xFF000000)
+              bottom: const TabBar(
+                indicatorWeight: 1,
+                indicatorColor: Colors.grey,
+                tabs: [
+                  Tab(
+                      child: Text(
+                    "Favoris",
+                    textAlign: TextAlign.left,
+                  )),
+                  // Tab(child: Text("Mes recherches")),
+                ],
+              ),
+              title: Container(
+                height: 50,
+                width: MediaQuery.of(context).size.width * 1.0,
+                color: Colors.white,
+                child: SizedBox(
+                  width: 80.0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Image.asset(
+                      'assets/pictures/logo2.png',
+                      width: 50,
+                      height: 150,
+                    ),
                   ),
-                  title: _bodyTitle(),
-                ),
-                body: TabBarView(
-                  children: [
-                    Center(child: _mesAnnonces()),
-                    // Center(child: Text("Transit")),
-                  ],
-                ),
-              )));
-
-  Widget _bodyTitle() =>  Row(
-          mainAxisAlignment : MainAxisAlignment.center,
-          children: <Widget>[
-            Align(
-              child: Image.asset(
-                'assets/pictures/logo2.png',
-                width: 150,
+                ), //Image.asset(),
               ),
             ),
-          ],
-  );
+            body: TabBarView(
+              children: [
+                Center(child: _mesAnnonces()),
+                // Center(child: Text("Transit")),
+              ],
+            ),
+          )
+          //)
+          );
 }
