@@ -21,76 +21,26 @@ class _IntroScreenStateState extends State<IntroScreenState> {
     slides.add(
       Slide(
         backgroundColor: Colors.white,
-        pathImage: "assets/pictures/png/logoMenu.png",
-        title: "FindyGo",
-        maxLineTitle: 2,
-        styleTitle: const TextStyle(
-          color: Color.fromARGB(255, 111, 207, 151),
-          fontSize: 42.0,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'RobotoMono',
-        ),
+        pathImage: "assets/pictures/logo2.png",
         description:
             "FindyGo, c'est la plateforme pour vendre ou acheter des vêtements et matériels de sport d'occasion.\n\n\n Tu ne t'en sers plus, vends les !",
         styleDescription: const TextStyle(
-          color: Color.fromARGB(255, 111, 207, 151),
           fontSize: 20.0,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'Raleway',
+          fontFamily: 'Montserrat',
         ),
-        marginDescription: const EdgeInsets.only(
-            left: 20.0, right: 20.0, top: 20.0, bottom: 70.0),
-        centerWidget: const Text(
-          "Notre but :",
-          style: TextStyle(
-            color: Color.fromARGB(255, 111, 207, 151),
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Raleway',
-          ),
-        ),
-        // backgroundImage: "images/forest.png",
-        directionColorBegin: Alignment.topLeft,
-        directionColorEnd: Alignment.bottomRight,
-        onCenterItemPress: () {},
       ),
     );
     slides.add(
       Slide(
         backgroundColor: Colors.white,
-        pathImage: "assets/pictures/png/logoMenu.png",
-        title: "FindyGo",
-        maxLineTitle: 2,
-        styleTitle: const TextStyle(
-          color: Color.fromARGB(255, 111, 207, 151),
-          fontSize: 42.0,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'RobotoMono',
-        ),
+        pathImage: "assets/pictures/logo2.png",
         description:
         "Inscrit toi pour pouvoir commencer à déposer des articles et les vendre ainsi que réaliser de bonnes affaires !",
         styleDescription: const TextStyle(
-          color: Color.fromARGB(255, 111, 207, 151),
           fontSize: 20.0,
-          fontWeight: FontWeight.bold,
-          fontFamily: 'Raleway',
+          fontFamily: 'Montserrat',
         ),
-        marginDescription: const EdgeInsets.only(
-            left: 20.0, right: 20.0, top: 20.0, bottom: 70.0),
-        centerWidget: const Text(
-          "Notre but :",
-          style: TextStyle(
-            color: Color.fromARGB(255, 111, 207, 151),
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Raleway',
-          ),
         ),
-        // backgroundImage: "images/forest.png",
-        directionColorBegin: Alignment.topLeft,
-        directionColorEnd: Alignment.bottomRight,
-        onCenterItemPress: () {},
-      ),
     );
   }
 
@@ -107,7 +57,7 @@ class _IntroScreenStateState extends State<IntroScreenState> {
   Widget renderNextBtn() {
     return const Icon(
       Icons.navigate_next,
-      color: Color.fromARGB(255, 111, 207, 151),
+      color: Color(0xFF4C5059),
       size: 35.0,
     );
   }
@@ -115,14 +65,29 @@ class _IntroScreenStateState extends State<IntroScreenState> {
   Widget renderDoneBtn() {
     return const Icon(
       Icons.done,
-      color: Color.fromARGB(255, 111, 207, 151),
+      color: Color(0xFF4C5059),
+    );
+  }
+
+  Widget loginButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 25),
+      child: ElevatedButton(
+        child: const Text('CONNEXION',
+            style: TextStyle(color: Colors.black, fontSize: 20)),
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.symmetric(vertical: 15),
+          primary: const Color(0xFF4C5059),
+        ),
+        onPressed: () => {}
+      ),
     );
   }
 
   Widget renderSkipBtn() {
     return const Icon(
       Icons.skip_next,
-      color: Color.fromARGB(255, 111, 207, 151),
+      color: Color(0xFF4C5059),
     );
   }
 
@@ -130,8 +95,8 @@ class _IntroScreenStateState extends State<IntroScreenState> {
     return ButtonStyle(
       shape: MaterialStateProperty.all<OutlinedBorder>(const StadiumBorder()),
       backgroundColor:
-          MaterialStateProperty.all<Color>(const Color.fromARGB(50, 111, 207, 151)),
-      overlayColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 111, 207, 151)),
+          MaterialStateProperty.all<Color>(const Color(0xFFA4B5BF)),
+      overlayColor: MaterialStateProperty.all<Color>(const Color(0xFF4C5059),),
     );
   }
 
@@ -156,8 +121,8 @@ class _IntroScreenStateState extends State<IntroScreenState> {
       doneButtonStyle: myButtonStyle(),
 
       // Dot indicator
-      colorDot: const Color.fromARGB(50, 111, 207, 151),
-      colorActiveDot: const Color.fromARGB(255, 111, 207, 151),
+      colorDot: const Color(0xFFA4B5BF),
+      colorActiveDot: const Color(0xFF3D403F),
       sizeDot: 13.0,
 
       // Show or hide status bar
