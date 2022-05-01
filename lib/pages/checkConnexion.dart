@@ -110,7 +110,7 @@ class _CheckConnexionState extends State<CheckConnexion> {
           // String? monJwt = await all. storage.read(key: "jwt");
         } else {
           // Met à jour comme quoi l'Intro Slider à été vu une première fois
-          await _storage.write(key: "isFirstTimeAppOpened", value: "false");
+          await _storage.write(key: "isFirstTimeAppOpened", value: "true");
 
           // Sinon, aller directement à la page Home
           Navigator.of(context).pushNamed(ROUTE_INTRO_SLIDER);
