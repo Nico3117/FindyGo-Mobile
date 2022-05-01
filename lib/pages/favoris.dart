@@ -2,6 +2,7 @@ import 'package:findygo/bo/Favorit.dart';
 import 'package:findygo/constants/classe_images.dart';
 import 'package:findygo/constants/routes.dart';
 import 'package:findygo/widgets/bottom_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Favoris extends StatefulWidget {
@@ -41,7 +42,6 @@ class _FavorisState extends State<Favoris> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Colors.white,
       extendBodyBehindAppBar: false,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(0.0),
@@ -75,7 +75,7 @@ class _FavorisState extends State<Favoris> {
                       context: context,
                       builder: (BuildContext context) =>
                           AlertDialog(
-                              title: Text('Voulez-vous réserver pour le ' +
+                              title: Text('Article de ' +
                                   lstHomme
                                       .elementAt(index)
                                       .firstname),
@@ -84,15 +84,12 @@ class _FavorisState extends State<Favoris> {
                                     .spaceEvenly,
                                 children: <Widget>[
                                   Container(
-                                    width: 200,
-                                    height: 200,
                                     child: Image.asset(
                                         lstHomme
                                             .elementAt(index)
                                             .pictureUrl),
                                   ),
-                                  const Text(
-                                      '10% de remise pour une réservation à partir de 4 nuits.'),
+                                  Text(lstHomme.elementAt(index).shortDescription),
                                 ],
                               ),
                               actions: <Widget>[
@@ -107,40 +104,49 @@ class _FavorisState extends State<Favoris> {
                                 ),
                               ])),
               child: Card(
-                color: Colors.teal,
+                color: Color(0xFFEBEBEB),
                 elevation: 3.0,
                 child: Container(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Text(
+                          lstHomme.elementAt(index).lastname,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold
+                          ),
+                        ),
+                      ),
                       Padding(
                           padding: const EdgeInsets.all(5),
                           child: Container(
-                            width: 100,
-                            height: 100,
-                            child: Image.asset(lstHomme
-                                .elementAt(index)
-                                .pictureUrl),
+                              width: 110,
+                              height: 110,
+                              child: Image.asset(
+                                  lstHomme.elementAt(index).pictureUrl
+                              ),
                           )
                       ),
-                      _buildDivider(),
-                      Text(
-                        _item.toString(),
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15),
+                      Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: Text(
+                          lstHomme.elementAt(index).shortDescription,
+                          style: const TextStyle (
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15
+                          ),
+                        ),
                       ),
-                      _buildDivider(),
-                      Text(
-                        lstHomme
-                            .elementAt(index)
-                            .lastname,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 8),
+                      Padding(
+                        padding: const EdgeInsets.only(top:3),
+                        child: Text(
+                          lstHomme.elementAt(index).price.toString() + '€',
+                          style: const TextStyle (
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15
+                          ),
+                        ),
                       ),
                       const Spacer(),
                     ],
@@ -152,135 +158,43 @@ class _FavorisState extends State<Favoris> {
 
   Divider _buildDivider() {
     return const Divider(
-      color: Colors.white,
-      indent: 10,
-      endIndent: 10,
+      indent: 5,
+      endIndent: 5,
     );
   }
 
   Widget _buildTabBar() =>
       Center(
           child: DefaultTabController(
-              length: 2,
+              length: 1,
               child: Scaffold(
                 appBar: AppBar(
+                  backgroundColor: Color(0xFFFFFFFF),
                   bottom: const TabBar(
                     tabs: [
-                      Tab(child: Text("Mes annonces")),
-                      Tab(child: Text("Mes recherches")),
+                      Tab(child: Text("Favoris", textAlign: TextAlign.left,)),
+                      // Tab(child: Text("Mes recherches")),
                     ],
                   ),
-                  title: const Text('Favoris'),
+                  title: _bodyTitle(),
                 ),
                 body: TabBarView(
                   children: [
                     Center(child: _mesAnnonces()),
-                    Center(child: Text("Transit")),
+                    // Center(child: Text("Transit")),
                   ],
                 ),
               )));
 
-  Widget _bottomNavBar() =>
-      Theme(
-          data: Theme.of(context).copyWith(
-              canvasColor: Colors.orange,
-              primaryColor: Colors.deepPurple,
-              textTheme: Theme
-                  .of(context)
-                  .textTheme
-                  .copyWith(caption: const TextStyle(color: Colors.yellow))),
-          child: BottomNavigationBar(
-            unselectedItemColor: Colors.black,
-            selectedItemColor: const Color.fromARGB(255, 111, 207, 151),
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.white,
-            elevation: 1,
-            currentIndex: _currentIndexBottomAppBar,
-            onTap: _onItemTapped,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                activeIcon:
-                Icon(Icons.search, color: Color.fromARGB(255, 111, 207, 151)),
-                icon: Icon(
-                  Icons.search,
-                  color: Colors.black,
-                ),
-                label: 'Rechercher',
+  Widget _bodyTitle() =>  Row(
+          mainAxisAlignment : MainAxisAlignment.center,
+          children: <Widget>[
+            Align(
+              child: Image.asset(
+                'assets/pictures/logo2.png',
+                width: 150,
               ),
-              BottomNavigationBarItem(
-                activeIcon: Icon(Icons.favorite_border,
-                    color: Color.fromARGB(255, 111, 207, 151)),
-                icon: Icon(
-                  Icons.favorite_border,
-                  color: Colors.black,
-                ),
-                label: 'Favoris',
-              ),
-              BottomNavigationBarItem(
-                activeIcon: Icon(Icons.publish_outlined,
-                    color: Color.fromARGB(255, 111, 207, 151)),
-                icon: Icon(
-                  Icons.publish_outlined,
-                  color: Colors.black,
-                ),
-                label: 'Publier',
-              ),
-              BottomNavigationBarItem(
-                activeIcon:
-                Icon(Icons.chat, color: Color.fromARGB(255, 111, 207, 151)),
-                icon: Icon(
-                  Icons.chat,
-                  color: Colors.black,
-                ),
-                label: 'Messages',
-              ),
-              BottomNavigationBarItem(
-                activeIcon: Icon(Icons.account_circle_outlined,
-                    color: Color.fromARGB(255, 111, 207, 151)),
-                icon: Icon(
-                  Icons.account_circle_outlined,
-                  color: Colors.black,
-                ),
-                label: 'Compte',
-              ),
-            ],
-          ));
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _currentIndexBottomAppBar = index;
-
-      switch (index) {
-        case 0:
-          {
-            Navigator.of(context).pushReplacementNamed(ROUTE_SEARCH);
-          }
-          break;
-
-        case 1:
-          {
-            Navigator.of(context).pushReplacementNamed(ROUTE_FAVORIS);
-          }
-          break;
-        case 2:
-          {
-            Navigator.of(context).pushReplacementNamed(ROUTE_PUBLISH);
-          }
-          break;
-
-        case 3:
-          {
-            Navigator.of(context).pushReplacementNamed(ROUTE_MESSAGES);
-          }
-          break;
-        case 4:
-          {
-            Navigator.of(context).pushReplacementNamed(ROUTE_ACCOUNT);
-          }
-          break;
-        default:
-          print("index = " + index.toString());
-      }
-    });
-  }
+            ),
+          ],
+  );
 }
