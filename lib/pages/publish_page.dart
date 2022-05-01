@@ -115,11 +115,8 @@ class _PublishPageState extends State<PublishPage> {
                           _logo(),
                           _bodyTitle(),
                           Container(
-                            height: 10,
-                          ),
-                          Container(
                               color: Colors.white,
-                              height: 510,
+                              height: 400,
                               child: Form(
                                   key: _formKey,
                                   child: Column(
@@ -133,24 +130,11 @@ class _PublishPageState extends State<PublishPage> {
                                         _buildBrandField2(),
                                         _buildPriceField(),
                                         const SizedBox(
-                                          height: 8,
+                                          height: 2,
                                         ),
                                         _buildPublishButton(context),
                                         _buildMessageErreur(),
-                                        const SizedBox(
-                                          height: 2,
-                                        ),
                                       ]))),
-                          const Spacer(),
-                          Image.network(
-                            "https://www.u-bordeaux-montaigne.fr/_contents/ametys-internal%253Asites/www/ametys-internal%253Acontents/partir-a-l-etranger-dans-le-cadre-d-une-convention-de-cooperation-article/_attribute/illustration/image/partir-etranger-convention-cooperation-u-bordeaux-montaigne_max0x611.png?objectId=defaultWebContent://c1579e77-f30d-4644-822f-d2f33946bd0b",
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            //height: 200,
-                          ),
-                          //const Spacer(),
-                          const SizedBox(
-                            height: 20,
-                          ),
                         ],
                       ),
                     )))),
@@ -162,46 +146,43 @@ class _PublishPageState extends State<PublishPage> {
   /// */
 
   Widget _logo() => SizedBox(
-        width: 80.0,
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Image.asset(
-            'assets/pictures/logo.png',
-            width: 50,
-            height: 50,
-          ),
-        ),
-      );
+    width: 150,
+    child: Padding (
+      padding: EdgeInsets.only(bottom: 20),
+      child: Image.asset(
+        'assets/pictures/logo.png',
+      ),
+    ),
+  );
 
   Widget _bodyTitle() => SizedBox(
-      width: 200.0,
+      width: 250.0,
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: const <Widget>[
             Padding(
                 padding: EdgeInsets.only(bottom: 10),
                 child: Text(
-                  "Publier un article",
+                  "PUBLICATION",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Color.fromARGB(255, 111, 207, 151)),
+                      fontSize: 28,
+                      color: Colors.black),
                 ))
           ]));
 
-  Widget _buildTitleField() => SizedBox(
+  Widget _buildTitleField() => Padding (
+      padding: EdgeInsets.only(bottom: 20),
+      child : SizedBox(
       width: 200.0,
       child: TextFormField(
         controller: widget.tecTitle,
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
+          border: OutlineInputBorder(),
           labelText: "Titre",
           hintText: "Titre",
-          prefixIcon: IconButton(
-            icon: const Icon(Icons.title),
-            onPressed: () {},
-          ),
         ),
         autovalidateMode: isButtonValidationDisabled
             ? AutovalidateMode.onUserInteraction
@@ -216,21 +197,20 @@ class _PublishPageState extends State<PublishPage> {
         },
         // update the state variable when the text changes
         onChanged: (text) => setState(() => _title = text),
-      ));
+      )));
 
-  Widget _buildDescriptionField() => SizedBox(
+  Widget _buildDescriptionField() => Padding (
+      padding: EdgeInsets.only(bottom: 20),
+      child : SizedBox(
       width: 200.0,
       child: TextFormField(
         controller: widget.tecDescription,
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
+          border: OutlineInputBorder(),
           labelText: "Description",
           hintText: "Description",
-          prefixIcon: IconButton(
-            icon: const Icon(Icons.description),
-            onPressed: () {},
-          ),
         ),
         autovalidateMode: isButtonValidationDisabled
             ? AutovalidateMode.onUserInteraction
@@ -245,7 +225,7 @@ class _PublishPageState extends State<PublishPage> {
         },
         // update the state variable when the text changes
         onChanged: (text) => setState(() => _description = text),
-      ));
+      )));
 
   Widget _buildSizeField() => SizedBox(
       width: 100.0,
@@ -416,19 +396,18 @@ class _PublishPageState extends State<PublishPage> {
     ),]))
   );
 
-  Widget _buildPriceField() => SizedBox(
+  Widget _buildPriceField() => Padding (
+      padding: EdgeInsets.only(top: 20),
+      child : SizedBox(
       width: 200.0,
       child: TextFormField(
         controller: widget.tecPrice,
         keyboardType: TextInputType.number,
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
+          border: OutlineInputBorder(),
           labelText: "Prix",
           hintText: "Prix",
-          prefixIcon: IconButton(
-            icon: const Icon(Icons.price_change_outlined),
-            onPressed: () {},
-          ),
         ),
         autovalidateMode: isButtonValidationDisabled
             ? AutovalidateMode.onUserInteraction
@@ -447,7 +426,7 @@ class _PublishPageState extends State<PublishPage> {
         {_priceString = text;
          _priceDouble = _priceString.isNotEmpty ? double.parse(_priceString): 0.0;
         }),
-      ));
+      )));
 
   Widget _buildMessageErreur() => Center(
           child: Text(
@@ -457,15 +436,13 @@ class _PublishPageState extends State<PublishPage> {
 
   Widget _buildPublishButton(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.only(top: 25),
       child: ElevatedButton(
-        child: const Text('Publier',
-            style: TextStyle(color: Colors.white, fontSize: 20)),
+        child: const Text('PUBLIER',
+            style: TextStyle(color: Colors.black, fontSize: 20)),
         style: ElevatedButton.styleFrom(
-          primary: const Color(0xFF6FCF97),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
+          padding: EdgeInsets.symmetric(vertical: 15),
+          primary: const Color(0xFFC1D2D9),
         ),
         onPressed: () =>
         _title.isNotEmpty && _description.isNotEmpty && _priceString.isNotEmpty
