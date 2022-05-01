@@ -4,9 +4,9 @@
         "description": "The conventional newborn programmer greeting"
     },
 
-    "bottom_menu_bar_search":"Search",
+    "bottom_menu_bar_search":"Home",
     "@bottom_menu_bar_search":{
-        "description":"Search some articles"
+        "description":"Home"
     },
     "bottom_menu_bar_favorites":"Favorites",
     "@bottom_menu_bar_favorites":{
@@ -16,7 +16,7 @@
     "@bottom_menu_bar_publish":{
         "description":"Publish some articles"
     },
-    "bottom_menu_bar_messages":"Search",
+    "bottom_menu_bar_messages":"Messages",
     "@bottom_menu_bar_messages":{
         "description":"Customer messages"
     },

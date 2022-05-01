@@ -55,7 +55,7 @@ class _MyBottomBarState extends State<MyBottomBar> {
         onTap: _onItemTapped,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            activeIcon: Icon(Icons.search, color: const Color(0xff4C5059)),
+            activeIcon: Icon(Icons.home, color: const Color(0xff4C5059)),
             icon: Icon(
               Icons.search,
               color: const Color(0xff4C5059),
