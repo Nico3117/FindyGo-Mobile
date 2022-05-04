@@ -1,51 +1,150 @@
 {
-    "helloWorld": "Hello World!",
-    "@helloWorld": {
-        "description": "The conventional newborn programmer greeting"
-    },
-
-    "bottom_menu_bar_search":"Home",
-    "@bottom_menu_bar_search":{
-        "description":"Home"
-    },
-    "bottom_menu_bar_favorites":"Favorites",
-    "@bottom_menu_bar_favorites":{
-        "description":"Customer favorites goods"
-    },
-    "bottom_menu_bar_publish":"Publish",
-    "@bottom_menu_bar_publish":{
-        "description":"Publish some articles"
-    },
-    "bottom_menu_bar_messages":"Messages",
-    "@bottom_menu_bar_messages":{
-        "description":"Customer messages"
-    },
-    "bottom_menu_bar_account":"Account",
-    "@bottom_menu_bar_account":{
-        "description":"Customer account"
-    },
-    "home_search_on_findygo":"Search on FindyGo",
-    "@home_search_on_findygo":{
-        "description":""
-    },
-    "home_find_tour_favorites_sports":"Find your favorite sports",
-    "@home_find_tour_favorites_sports":{
-        "description":""
-    },
-    "home_news":"News",
-    "@home_news":{
-        "description":""
-    },
-    "home_search_for_more_items":"Search for more items",
-    "@home_search_for_more_items":{
-        "description":""
-    },
-    "home_please_enter_text":"Please enter text",
-    "@home_please_enter_text":{
-        "description":""
-    },
-    "home_see_more":"see more",
-    "@home_see_more":{
-        "description":""
-    }
+  "helloWorld": "Hello World!",
+  "@helloWorld": {
+    "description": "The conventional newborn programmer greeting"
+  },
+  "bottom_menu_bar_search": "Home",
+  "@bottom_menu_bar_search": {
+    "description": "Home"
+  },
+  "bottom_menu_bar_favorites": "Favorites",
+  "@bottom_menu_bar_favorites": {
+    "description": "Customer favorites goods"
+  },
+  "bottom_menu_bar_publish": "Publish",
+  "@bottom_menu_bar_publish": {
+    "description": "Publish some articles"
+  },
+  "bottom_menu_bar_messages": "Messages",
+  "@bottom_menu_bar_messages": {
+    "description": "Customer messages"
+  },
+  "bottom_menu_bar_account": "Account",
+  "@bottom_menu_bar_account": {
+    "description": "Customer account"
+  },
+  "home_search_on_findygo": "Search on FindyGo",
+  "@home_search_on_findygo": {
+    "description": ""
+  },
+  "home_find_tour_favorites_sports": "Find your favorite sports",
+  "@home_find_tour_favorites_sports": {
+    "description": ""
+  },
+  "home_news": "News",
+  "@home_news": {
+    "description": ""
+  },
+  "home_search_for_more_items": "Search more items",
+  "@home_search_for_more_items": {
+    "description": ""
+  },
+  "home_please_enter_text": "Please enter text",
+  "@home_please_enter_text": {
+    "description": ""
+  },
+  "home_see_more": "see more",
+  "@home_see_more": {
+    "description": ""
+  },
+  "favorites_page_favorites": "Favorites",
+  "@favorites_page_favorites": {
+    "description": ""
+  },
+  "publish_page_title": "Title",
+  "@publish_page_favorites": {
+    "description": ""
+  },
+  "publish_page_title_page": "Publication",
+  "@publish_page_title_page": {
+    "description": ""
+  },
+  "publish_page_description": "Description",
+  "@publish_page_description": {
+    "description": ""
+  },
+  "publish_page_price": "Price",
+  "@publish_page_price": {
+    "description": ""
+  },
+  "publish_page_publish_button": "Publish",
+  "@publish_page_publish_button": {
+    "description": ""
+  },
+  "publish_page_size": "Size",
+  "@publish_page_size": {
+    "description": ""
+  },
+  "publish_page_brand": "Brand",
+  "@publish_page_brand": {
+    "description": ""
+  },
+  "login_page_title": "CONNECTION",
+  "@login_page_title": {
+    "description": ""
+  },
+  "login_page_email": "mail",
+  "@login_page_email": {
+    "description": ""
+  },
+  "login_page_password": "Password",
+  "@login_page_password": {
+    "description": ""
+  },
+  "login_page_connection_button": "Connection",
+  "@login_page_connection_button": {
+    "description": ""
+  },
+  "login_page_no_account_link": "No account ?",
+  "@login_page_no_account_link": {
+    "description": ""
+  },
+  "login_page_forgotten_password_link": "Forgotten password",
+  "@login_page_forgotten_password_link": {
+    "description": ""
+  },
+  "subscribe_page_main_title": "Subscribe",
+  "@subscribe_page_main_title": {
+    "description": ""
+  },
+  "subscribe_page_mail": "Mail",
+  "@subscribe_page_mail": {
+    "description": ""
+  },
+  "subscribe_page_username": "Username",
+  "@subscribe_page_username": {
+    "description": ""
+  },
+  "subscribe_page_password": "Password",
+  "@subscribe_page_password": {
+    "description": ""
+  },
+  "subscribe_page_confirmation_password": "Password confirmation",
+  "@subscribe_page_confirmation_password": {
+    "description": ""
+  },
+  "subscribe_page_subscribe_button": "Subscribe",
+  "@subscribe_page_subscribe_button": {
+    "description": ""
+  },
+  "subscribe_page_already_an_account": "Already an account ?",
+  "@subscribe_page_already_an_account": {
+    "description": ""
+  },
+  "forgotten_password_page_title": "Forgotten password",
+  "@forgotten_password_page_title": {
+    "description": ""
+  },
+  "forgotten_password_page_mail": "Mail",
+  "@forgotten_password_page_mail": {
+    "description": ""
+  },
+  "forgotten_password_page_send_mail_button": "Send a mail",
+  "@forgotten_password_page_send_mail_button": {
+    "description": ""
+  },
+  "forgotten_password_page_to_connect": "Loggin",
+  "@forgotten_password_page_to_connect": {
+    "description": ""
+  }
 }
