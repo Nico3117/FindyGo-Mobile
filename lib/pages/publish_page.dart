@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'package:findygo/constants/routes.dart';
 import 'package:select_form_field/select_form_field.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /** Publier un article */
 class PublishPage extends StatefulWidget {
@@ -14,8 +15,7 @@ class PublishPage extends StatefulWidget {
   /// */
   // Paramètres
 
-  late TextEditingController
-      tecTitle, // une string
+  late TextEditingController tecTitle, // une string
       tecDescription, // une string
       tecSize, // Tailles des colis de 10, 11, 12, etc == S, L, XL une liste
       tecBrand, // Marques des colis 10, 11, 12, 13, etc == Nike, Addidas, Element, Asus
@@ -24,8 +24,7 @@ class PublishPage extends StatefulWidget {
   ///  Constructor ------------------------------------------------------------------
   /// */
 
-  PublishPage(
-     {
+  PublishPage({
     Key? key,
   }) : super(key: key) {
     tecTitle = TextEditingController();
@@ -47,6 +46,7 @@ class _PublishPageState extends State<PublishPage> {
 
   // Initial Selected Value for the sizes
   String sizeDropdownvalue = 'L';
+
   // Initial Selected Value for the brands
   String brandDropdownvalue = 'Addidas';
 
@@ -102,42 +102,42 @@ class _PublishPageState extends State<PublishPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-            child: SizedBox(
-                height: MediaQuery.of(context).size.height,
-                child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Center(
-                      child: Column(
-                        children: [
-                          Container(height: 50),
-                          _logo(),
-                          _bodyTitle(),
-                          Container(
-                              color: Colors.white,
-                              height: 400,
-                              child: Form(
-                                  key: _formKey,
-                                  child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.stretch,
-                                      children: [
-                                        _buildTitleField(),
-                                        _buildDescriptionField(),
-                                        _buildSizeField2(),
-                                        _buildBrandField2(),
-                                        _buildPriceField(),
-                                        const SizedBox(
-                                          height: 2,
-                                        ),
-                                        _buildPublishButton(context),
-                                        _buildMessageErreur(),
-                                      ]))),
-                        ],
-                      ),
-                    )))),
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+          child: SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Center(
+                    child: Column(
+                      children: [
+                        Container(height: 50),
+                        _logo(),
+                        _bodyTitle(),
+                        Container(
+                            color: Colors.white,
+                            height: 475,
+                            child: Form(
+                                key: _formKey,
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      _buildTitleField(),
+                                      _buildDescriptionField(),
+                                      _buildSizeField2(),
+                                      _buildBrandField2(),
+                                      _buildPriceField(),
+                                      const SizedBox(
+                                        height: 2,
+                                      ),
+                                      _buildPublishButton(context),
+                                      _buildMessageErreur(),
+                                    ]))),
+                      ],
+                    ),
+                  )))),
       bottomNavigationBar: MyBottomBar(2),
     );
   }
@@ -146,14 +146,14 @@ class _PublishPageState extends State<PublishPage> {
   /// */
 
   Widget _logo() => SizedBox(
-    width: 150,
-    child: Padding (
-      padding: EdgeInsets.only(bottom: 20),
-      child: Image.asset(
-        'assets/pictures/logo.png',
-      ),
-    ),
-  );
+        width: 150,
+        child: Padding(
+          padding: EdgeInsets.only(bottom: 20),
+          child: Image.asset(
+            'assets/pictures/logo.png',
+          ),
+        ),
+      );
 
   Widget _bodyTitle() => SizedBox(
       width: 250.0,
@@ -171,71 +171,71 @@ class _PublishPageState extends State<PublishPage> {
                 ))
           ]));
 
-  Widget _buildTitleField() => Padding (
+  Widget _buildTitleField() => Padding(
       padding: EdgeInsets.only(bottom: 20),
-      child : SizedBox(
-      width: 200.0,
-      child: TextFormField(
-        controller: widget.tecTitle,
-        keyboardType: TextInputType.text,
-        textInputAction: TextInputAction.next,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: "Titre",
-          hintText: "Titre",
-        ),
-        autovalidateMode: isButtonValidationDisabled
-            ? AutovalidateMode.onUserInteraction
-            : AutovalidateMode.disabled,
-        // use the validator to return an error string (or null) based on the input text
-        validator: (text) {
-          // Check format titre
-          if (text == null || text.length < 2) {
-            return 'Titre trop court !';
-          }
-          return null;
-        },
-        // update the state variable when the text changes
-        onChanged: (text) => setState(() => _title = text),
-      )));
+      child: SizedBox(
+          width: 200.0,
+          child: TextFormField(
+            controller: widget.tecTitle,
+            keyboardType: TextInputType.text,
+            textInputAction: TextInputAction.next,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: AppLocalizations.of(context).publish_page_title,
+              hintText: AppLocalizations.of(context).publish_page_title,
+            ),
+            autovalidateMode: isButtonValidationDisabled
+                ? AutovalidateMode.onUserInteraction
+                : AutovalidateMode.disabled,
+            // use the validator to return an error string (or null) based on the input text
+            validator: (text) {
+              // Check format titre
+              if (text == null || text.length < 2) {
+                return 'Titre trop court !';
+              }
+              return null;
+            },
+            // update the state variable when the text changes
+            onChanged: (text) => setState(() => _title = text),
+          )));
 
-  Widget _buildDescriptionField() => Padding (
+  Widget _buildDescriptionField() => Padding(
       padding: EdgeInsets.only(bottom: 20),
-      child : SizedBox(
-      width: 200.0,
-      child: TextFormField(
-        controller: widget.tecDescription,
-        keyboardType: TextInputType.text,
-        textInputAction: TextInputAction.next,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: "Description",
-          hintText: "Description",
-        ),
-        autovalidateMode: isButtonValidationDisabled
-            ? AutovalidateMode.onUserInteraction
-            : AutovalidateMode.disabled,
-        // use the validator to return an error string (or null) based on the input text
-        validator: (text) {
-          // Check format titre
-          if (text == null || text.length < 2) {
-            return 'Description trop courte !';
-          }
-          return null;
-        },
-        // update the state variable when the text changes
-        onChanged: (text) => setState(() => _description = text),
-      )));
+      child: SizedBox(
+          width: 200.0,
+          child: TextFormField(
+            controller: widget.tecDescription,
+            keyboardType: TextInputType.text,
+            textInputAction: TextInputAction.next,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: AppLocalizations.of(context).publish_page_description,
+              hintText: AppLocalizations.of(context).publish_page_description,
+            ),
+            autovalidateMode: isButtonValidationDisabled
+                ? AutovalidateMode.onUserInteraction
+                : AutovalidateMode.disabled,
+            // use the validator to return an error string (or null) based on the input text
+            validator: (text) {
+              // Check format titre
+              if (text == null || text.length < 2) {
+                return 'Description trop courte !';
+              }
+              return null;
+            },
+            // update the state variable when the text changes
+            onChanged: (text) => setState(() => _description = text),
+          )));
 
   Widget _buildSizeField() => SizedBox(
       width: 100.0,
-      child:  TextFormField(
+      child: TextFormField(
         controller: widget.tecSize,
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          labelText: "Taille",
-          hintText: "Taille",
+          labelText: AppLocalizations.of(context).publish_page_size,
+          hintText: AppLocalizations.of(context).publish_page_size,
           prefixIcon: IconButton(
             icon: const Icon(Icons.format_size_outlined),
             onPressed: () {},
@@ -254,61 +254,61 @@ class _PublishPageState extends State<PublishPage> {
         },
         // update the state variable when the text changes
         onChanged: (text) => setState(() => _size = text),
-      )
-  );
+      ));
 
   Widget _buildSizeField2() => SizedBox(
       width: 100.0,
-      child:  Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            const Icon(Icons.format_size, color: Colors.grey),
-            const Text("Taille"),
-            DropdownButton(
+      child: Center(
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        const Icon(Icons.format_size, color: Colors.grey),
+        Text(AppLocalizations.of(context).publish_page_size),
+        DropdownButton(
+          // Initial Value
+          value: sizeDropdownvalue,
 
-        // Initial Value
-        value: sizeDropdownvalue,
+          // Down Arrow Icon
+          icon: const Icon(Icons.keyboard_arrow_down),
 
-        // Down Arrow Icon
-        icon: const Icon(Icons.keyboard_arrow_down),
+          // Array list of items
+          items: sizeItems.map((String items) {
+            return DropdownMenuItem(
+              value: items,
+              child: Text(items),
+            );
+          }).toList(),
+          // After selecting the desired option,it will
+          // change button value to selected value
+          onChanged: (String? newValue) {
+            setState(() {
+              sizeDropdownvalue = newValue!;
 
-        // Array list of items
-        items: sizeItems.map((String items) {
-          return DropdownMenuItem(
-            value: items,
-            child: Text(items),
-          );
-        }).toList(),
-        // After selecting the desired option,it will
-        // change button value to selected value
-        onChanged: (String? newValue) {
-          setState(() {
-            sizeDropdownvalue = newValue!;
-
-            switch(sizeDropdownvalue){
-              case "S":{
-                _size = "10";
+              switch (sizeDropdownvalue) {
+                case "S":
+                  {
+                    _size = "10";
+                  }
+                  break;
+                case "L":
+                  {
+                    _size = "11";
+                  }
+                  break;
+                case "XL":
+                  {
+                    _size = "12";
+                  }
+                  break;
+                default:
+                  _size = "11";
               }
-              break;
-              case "L":{
-                _size = "11";
-              }
-              break;
-              case "XL":{
-                _size = "12";
-              }
-              break;
-              default:
-                _size = "11";
-            }
 
-            // Affectation de la taille à envoyer au serveur
-            widget.tecSize.text = _size;
-          });
-        },
-      ),]))
-  );
+              // Affectation de la taille à envoyer au serveur
+              widget.tecSize.text = _size;
+            });
+          },
+        ),
+      ])));
 
   Widget _buildBrandField() => SizedBox(
       width: 200.0,
@@ -317,8 +317,8 @@ class _PublishPageState extends State<PublishPage> {
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          labelText: "Marque",
-          hintText: "Marque",
+          labelText: AppLocalizations.of(context).publish_page_brand,
+          hintText: AppLocalizations.of(context).publish_page_brand,
           prefixIcon: IconButton(
             icon: const Icon(Icons.branding_watermark_outlined),
             onPressed: () {},
@@ -340,93 +340,98 @@ class _PublishPageState extends State<PublishPage> {
       ));
 
   Widget _buildBrandField2() => SizedBox(
-    width: 100.0,
-    child:  Center(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Icon(Icons.branding_watermark_outlined, color: Colors.grey),
-          Text("Marque"),
-          DropdownButton(
-
-      // Initial Value
-      value: brandDropdownvalue,
-
-      // Down Arrow Icon
-      icon: const Icon(Icons.keyboard_arrow_down),
-
-      // Array list of items
-      items: brandItems.map((String items) {
-        return DropdownMenuItem(
-          value: items,
-          child: Text(items),
-        );
-      }).toList(),
-      // After selecting the desired option,it will
-      // change button value to selected value
-      onChanged: (String? newValue) {
-        setState(() {
-          brandDropdownvalue = newValue!;
-
-          switch(brandDropdownvalue){
-            case "Nike":{
-              _brand = "10";
-            }
-            break;
-            case "Addidas":{
-              _brand = "11";
-            }
-            break;
-            case "Element":{
-              _brand = "12";
-            }
-            break;
-            case "Asus":{
-              _brand = "13";
-            }
-            break;
-            default:
-              _brand = "11";
-          }
-
-          // Affectation de la marque à envoyer au serveur
-          widget.tecBrand.text = _brand;
-        });
-      },
-    ),]))
-  );
-
-  Widget _buildPriceField() => Padding (
-      padding: EdgeInsets.only(top: 20),
-      child : SizedBox(
-      width: 200.0,
-      child: TextFormField(
-        controller: widget.tecPrice,
-        keyboardType: TextInputType.number,
-        textInputAction: TextInputAction.next,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: "Prix",
-          hintText: "Prix",
+      width: 100.0,
+      child: Center(
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        Icon(Icons.branding_watermark_outlined, color: Colors.grey),
+        Text(
+          AppLocalizations.of(context).publish_page_brand,
         ),
-        autovalidateMode: isButtonValidationDisabled
-            ? AutovalidateMode.onUserInteraction
-            : AutovalidateMode.disabled,
-        // use the validator to return an error string (or null) based on the input text
-        validator: (text) {
-          // Check format titre
-         /* if (text == null || text.length < 6) {
+        DropdownButton(
+          // Initial Value
+          value: brandDropdownvalue,
+
+          // Down Arrow Icon
+          icon: const Icon(Icons.keyboard_arrow_down),
+
+          // Array list of items
+          items: brandItems.map((String items) {
+            return DropdownMenuItem(
+              value: items,
+              child: Text(items),
+            );
+          }).toList(),
+          // After selecting the desired option,it will
+          // change button value to selected value
+          onChanged: (String? newValue) {
+            setState(() {
+              brandDropdownvalue = newValue!;
+
+              switch (brandDropdownvalue) {
+                case "Nike":
+                  {
+                    _brand = "10";
+                  }
+                  break;
+                case "Addidas":
+                  {
+                    _brand = "11";
+                  }
+                  break;
+                case "Element":
+                  {
+                    _brand = "12";
+                  }
+                  break;
+                case "Asus":
+                  {
+                    _brand = "13";
+                  }
+                  break;
+                default:
+                  _brand = "11";
+              }
+
+              // Affectation de la marque à envoyer au serveur
+              widget.tecBrand.text = _brand;
+            });
+          },
+        ),
+      ])));
+
+  Widget _buildPriceField() => Padding(
+      padding: EdgeInsets.only(top: 20),
+      child: SizedBox(
+          width: 200.0,
+          child: TextFormField(
+            controller: widget.tecPrice,
+            keyboardType: TextInputType.number,
+            textInputAction: TextInputAction.next,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: AppLocalizations.of(context).publish_page_price,
+              hintText: AppLocalizations.of(context).publish_page_price,
+            ),
+            autovalidateMode: isButtonValidationDisabled
+                ? AutovalidateMode.onUserInteraction
+                : AutovalidateMode.disabled,
+            // use the validator to return an error string (or null) based on the input text
+            validator: (text) {
+              // Check format titre
+              /* if (text == null || text.length < 6) {
             return 'Nom du titre trop court !';
           }*/
-          return null;
-        },
-        // update the state variable when the text changes
-      //  onChanged: (text) => setState(() => _price = double.parse('text')),
-        onChanged: (text) => setState(()
-        {_priceString = text;
-         _priceDouble = _priceString.isNotEmpty ? double.parse(_priceString): 0.0;
-        }),
-      )));
+              return null;
+            },
+            // update the state variable when the text changes
+            //  onChanged: (text) => setState(() => _price = double.parse('text')),
+            onChanged: (text) => setState(() {
+              _priceString = text;
+              _priceDouble =
+                  _priceString.isNotEmpty ? double.parse(_priceString) : 0.0;
+            }),
+          )));
 
   Widget _buildMessageErreur() => Center(
           child: Text(
@@ -438,16 +443,17 @@ class _PublishPageState extends State<PublishPage> {
     return Padding(
       padding: const EdgeInsets.only(top: 25),
       child: ElevatedButton(
-        child: const Text('PUBLIER',
+        child: Text(AppLocalizations.of(context).publish_page_publish_button,
             style: TextStyle(color: Colors.black, fontSize: 20)),
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.symmetric(vertical: 15),
           primary: const Color(0xFFC1D2D9),
         ),
-        onPressed: () =>
-        _title.isNotEmpty && _description.isNotEmpty && _priceString.isNotEmpty
-                ? _submit()
-                : null,
+        onPressed: () => _title.isNotEmpty &&
+                _description.isNotEmpty &&
+                _priceString.isNotEmpty
+            ? _submit()
+            : null,
       ),
     );
   }
@@ -457,8 +463,8 @@ class _PublishPageState extends State<PublishPage> {
   void _submit() {
     // On controle les inputs avant la soumission du formulaire
     setState(() => {
-      isButtonValidationDisabled = true,
-    });
+          isButtonValidationDisabled = true,
+        });
 
     // validate == true si les 3 TextFieldField sont valide
     if (_formKey.currentState!.validate()) {
@@ -468,12 +474,10 @@ class _PublishPageState extends State<PublishPage> {
     }
   }
 
-
   ///  Methods ------------------------------------------------------------------
   /// */
 
   void _sendPublish(BuildContext context) {
-
     double dou = double.parse(widget.tecPrice.text);
 
     Map _bodyToPublish = {
@@ -497,35 +501,33 @@ class _PublishPageState extends State<PublishPage> {
         name: "PublishPage", error: _bodyToPublish);
 
     ajaxPost("/products", _bodyToPublish).then((value) async => {
-
-    log("2 ********************************************> _bodyToPublish",
-    name: "PublishPage", error: value),
-
+          log("2 ********************************************> _bodyToPublish",
+              name: "PublishPage", error: value),
           if (value['id'] != null)
             {
               log("--------------------------------------------> body du POST /API/PRODUCTS",
                   name: "PublishPage", error: value.toString()),
 
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(const SnackBar(content: Text('Publication réussie'))),
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Publication réussie'))),
 
               // Reset textviews
-              widget.tecTitle.text="",
-              widget.tecDescription.text="",
-              widget.tecSize.text="",
-              widget.tecBrand.text="",
-              widget.tecPrice.text="",
+              widget.tecTitle.text = "",
+              widget.tecDescription.text = "",
+              widget.tecSize.text = "",
+              widget.tecBrand.text = "",
+              widget.tecPrice.text = "",
 
               // Redirection vers la page Search
-              Navigator.of(context)
-                  .pushNamed(ROUTE_SEARCH),
+              Navigator.of(context).pushNamed(ROUTE_SEARCH),
             }
           else
             {
               log("--------------------------------------------> Erreur PUBLISH d'un article",
                   name: "PublishPage", error: "Erreur de PUBLISH d'un article"),
               setState(() {
-                _msgErreur = "Erreur dans le paramétrage\n        d'un article à publier";
+                _msgErreur =
+                    "Erreur dans le paramétrage\n        d'un article à publier";
               })
             }
         });

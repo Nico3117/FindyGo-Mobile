@@ -108,9 +108,9 @@ class _HomeState extends State<Home> {
           child: TextFormField(
             decoration: InputDecoration(
               labelText:
-                  AppLocalizations.of(context).home_search_for_more_items,
+                  AppLocalizations.of(context).home_search_on_findygo,
               hintText:
-                  AppLocalizations.of(context).home_search_for_more_items,
+                  AppLocalizations.of(context).home_search_on_findygo,
               border: const OutlineInputBorder(
                 borderSide: BorderSide(color: Color(0xFFFF0000)),
                 borderRadius: BorderRadius.all(Radius.circular(1.0)),

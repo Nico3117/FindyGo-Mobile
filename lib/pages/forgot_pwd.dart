@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../bo/ArgsRoute.dart';
 
@@ -267,14 +268,14 @@ class _ForgotPwdPageState extends State<ForgotPwdPage> {
   );
 
   Widget _bodyTitle() => SizedBox(
-      width: 300.0,
+      width: 326.0,
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: const <Widget>[
+          children:  <Widget>[
             Padding(
                 padding: EdgeInsets.only(bottom: 30),
                 child: Text(
-                  "MOT DE PASSE OUBLIÉ",
+                  AppLocalizations.of(context).forgotten_password_page_title,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 28,
@@ -291,8 +292,8 @@ class _ForgotPwdPageState extends State<ForgotPwdPage> {
           keyboardType: TextInputType.emailAddress,
           textInputAction: TextInputAction.next,
           decoration: InputDecoration(
-            labelText: "Email",
-            hintText: "Email",
+            labelText: AppLocalizations.of(context).forgotten_password_page_mail,
+            hintText: AppLocalizations.of(context).forgotten_password_page_mail,
             border: OutlineInputBorder(),
           ),
           autovalidateMode: isButtonDisabled
@@ -332,7 +333,7 @@ class _ForgotPwdPageState extends State<ForgotPwdPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: ElevatedButton(
-          child: const Text('Envoyer email',
+          child: Text(AppLocalizations.of(context).forgotten_password_page_send_mail_button,
               style: TextStyle(color: Colors.black, fontSize: 20)),
           style: ElevatedButton.styleFrom(
             padding: EdgeInsets.symmetric(vertical: 15),
@@ -368,7 +369,7 @@ class _ForgotPwdPageState extends State<ForgotPwdPage> {
 
   Widget _buildLoginButton(BuildContext context) {
     return FlatButton(
-      child: const Text("Se connecter"),
+      child: Text(AppLocalizations.of(context).forgotten_password_page_to_connect),
       onPressed: () => {
         // Aller à la page loggin
         Navigator.of(context).pushReplacementNamed(ROUTE_ACCOUNT, arguments: _ags)

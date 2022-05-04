@@ -57,7 +57,7 @@ class _MyBottomBarState extends State<MyBottomBar> {
           BottomNavigationBarItem(
             activeIcon: Icon(Icons.home, color: const Color(0xff4C5059)),
             icon: Icon(
-              Icons.search,
+              Icons.home,
               color: const Color(0xff4C5059),
             ),
             label: AppLocalizations.of(context).bottom_menu_bar_search,

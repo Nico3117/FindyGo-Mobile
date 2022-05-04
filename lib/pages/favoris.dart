@@ -4,6 +4,7 @@ import 'package:findygo/constants/routes.dart';
 import 'package:findygo/widgets/bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Favoris extends StatefulWidget {
   Favoris({
@@ -155,13 +156,13 @@ class _FavorisState extends State<Favoris> {
               leadingWidth: 0,
               backgroundColor: Colors.white,
               // Color(0xFF000000)
-              bottom: const TabBar(
+              bottom: TabBar(
                 indicatorWeight: 1,
                 indicatorColor: Colors.grey,
                 tabs: [
                   Tab(
                       child: Text(
-                    "Favoris",
+                        AppLocalizations.of(context).favorites_page_favorites,
                     textAlign: TextAlign.left,
                   )),
                   // Tab(child: Text("Mes recherches")),

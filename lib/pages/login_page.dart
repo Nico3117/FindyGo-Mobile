@@ -6,6 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'package:findygo/constants/routes.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
   ///  Attributs ------------------------------------------------------------------
@@ -179,11 +180,11 @@ class _LoginPageState extends State<LoginPage> {
       width: 250.0,
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: const <Widget>[
+          children: <Widget>[
             Padding(
                 padding: EdgeInsets.only(bottom: 10),
                 child: Text(
-                  "CONNECTION",
+                  AppLocalizations.of(context).login_page_title,
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 28,
@@ -201,8 +202,8 @@ class _LoginPageState extends State<LoginPage> {
           textInputAction: TextInputAction.next,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            labelText: "Email",
-            hintText: "Email",
+            labelText: AppLocalizations.of(context).login_page_email,
+            hintText: AppLocalizations.of(context).login_page_email,
           ),
           autovalidateMode: isButtonDisabled
               ? AutovalidateMode.onUserInteraction
@@ -226,8 +227,8 @@ class _LoginPageState extends State<LoginPage> {
       obscureText: !_isPasswordVisible,
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        labelText: "Mot de passe",
-        hintText: "Mot de passe",
+        labelText: AppLocalizations.of(context).login_page_password,
+        hintText: AppLocalizations.of(context).login_page_password,
         border: OutlineInputBorder(),
         suffixIcon: IconButton(
           onPressed: () => updateStatus(),
@@ -268,7 +269,7 @@ class _LoginPageState extends State<LoginPage> {
     return Padding(
       padding: const EdgeInsets.only(top: 25),
       child: ElevatedButton(
-        child: const Text('CONNEXION',
+        child:  Text(AppLocalizations.of(context).login_page_connection_button,
             style: TextStyle(color: Colors.black, fontSize: 20)),
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.symmetric(vertical: 15),
@@ -287,7 +288,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildSubscribeButton(BuildContext context) {
     return FlatButton (
-      child: const Text("Pas de compte ?"),
+      child:  Text(AppLocalizations.of(context).login_page_no_account_link),
       onPressed: () => {
         // Aller à la page souscription
         Navigator.of(context).pushReplacementNamed(ROUTE_SUBSCRIBE, arguments: _ags)
@@ -297,7 +298,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildForgotPasswordButton(BuildContext context) {
     return FlatButton(
-      child: const Text("Mot de passe oublié ?"),
+      child:  Text(AppLocalizations.of(context).login_page_forgotten_password_link),
       onPressed: () => {
         // Aller à la page mot de passe oublier
         Navigator.of(context).pushReplacementNamed(ROUTE_FORGOT_PASSWORD)
